@@ -1,0 +1,61 @@
+
+<!-- DOCTYPE html -->
+
+<html>
+	
+<body>
+
+
+
+<h1> Create Form - Step 1 </h1>
+
+
+<!-- need to have POST to indicate its not a default get method and action says what url to send it to -->
+<!-- <form method='POST' action=''> {% csrf_token %} -->
+
+
+<br>
+<br>
+
+Enter the last names of the practioner you are looking for and select them
+
+<br>
+<br>
+<form method='GET' action=''>
+<input type='text' name='q1' placeholder='Lastname'/>
+<input type='submit' value='Search'/>
+</form>
+
+<br>
+<br>
+
+
+
+{% if query %}
+	{% for obj in queryset_list %}
+	<ul>{{obj.first_name}}
+	{{obj.last_name}} -
+	{{obj.level}} -
+	{{obj.office}} --
+	<a href='{% url "create_step2" pk=obj.pk %}'> Select </a>
+	
+	</ul>
+	<hr/>
+	{% endfor %}
+{% endif %}
+
+<br>
+
+
+<!-- {% for obj in queryset_list %}
+	{{obj.first_name}}
+	{{obj.last_name}}
+	<hr/>
+{% endfor %} -->
+
+<!-- <input type='text' name='q' placeholder='Search posts' value='{{ request.GET.q }}'/> -->
+
+</body>
+</html>
+
+

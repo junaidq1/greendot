@@ -1,0 +1,29 @@
+<!-- DOCTYPE html -->
+
+<html>
+	
+<body>
+
+
+
+<h1> List of all reviews</h1>
+<br>
+
+<br>
+{% for obj in obj_list %}
+	<ul>
+	<h3>
+	Review {{obj.pk}} _
+	{{obj.employee}}_ "
+	
+	<!-- <a href='{% url "r_detail" pk=obj.pk %}'> {{obj.content}} </a> "  this is how to think of linking-->
+	<a href='{{ obj.get_absolute_url }}'> {{obj.content}} </a> "
+
+	</h3>
+	</ul>
+	<hr/>
+{% endfor %}
+
+</body>
+</html>
+

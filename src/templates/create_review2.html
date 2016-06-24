@@ -1,0 +1,31 @@
+
+<!-- DOCTYPE html -->
+
+<html>
+	
+<body>
+
+
+
+<h1> Create Form - Step 2 </h1>
+
+
+<!-- need to have POST to indicate its not a default get method and action says what url to send it to -->
+<!-- <form method='POST' action=''> {% csrf_token %} -->
+
+
+<br>
+<br>
+
+<h3>This review is about : {{ obj }}</h3>
+
+<form method='POST' action=''> {% csrf_token %}
+
+{{form.as_p}}
+<input type='submit' value='Create Review'/>
+</form>
+
+<!-- <input type='text' name='q' placeholder='Search posts' value='{{ request.GET.q }}'/> -->
+
+</body>
+</html>

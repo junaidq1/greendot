@@ -1,0 +1,44 @@
+<!-- DOCTYPE html -->
+{% extends "base.html" %}
+
+
+
+
+<html>
+	
+<body>
+
+{% block content %}
+
+<h1> List of all Employees that exist</h1>
+<br>
+
+<br>
+{% for obj in obj_list %}
+	
+	<h3>
+
+	<ul>
+		<a href='{% url "emp_details" pk=obj.pk %}'>
+		{{obj.pk}} _
+		{{obj.first_name}} 
+		{{obj.last_name}} -
+		{{obj.level}} -
+		{{obj.office}} -
+		</a>
+	</ul>
+	
+	
+	<!-- <a href='{% url "r_detail" pk=obj.pk %}'> {{obj.content}} </a> "  this is how to think of linking-->
+	<!-- <a href='{{ obj.get_absolute_url }}'> {{obj.content}} </a> " -->
+
+	</h3>
+	
+	<hr/>
+{% endfor %}
+
+
+{% endblock %}
+</body>
+</html>
+
