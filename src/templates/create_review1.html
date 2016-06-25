@@ -1,13 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 <!-- DOCTYPE html -->
 
-<html>
-	
-<body>
+
+{% block content %}
 
 
 
-<h1> Create Form - Step 1 </h1>
+<div class='col-sm-8 col-sm-offset-1'>
+<h1> Step 1 - Identify Practitioner </h1>
 
 
 <!-- need to have POST to indicate its not a default get method and action says what url to send it to -->
@@ -21,15 +23,23 @@ Enter the last names of the practioner you are looking for and select them
 
 <br>
 <br>
+
+
 <form method='GET' action=''>
-<input type='text' name='q1' placeholder='Lastname'/>
-<input type='submit' value='Search'/>
+
+
+<!-- <input type='text' name='q1' placeholder='Lastname'/> -->
+<input type="text" name= 'q1' class="form-control" placeholder="Practitioner Lastname" >
+
+<br>
+
+<input class='btn btn-primary' type='submit' value='Search'/>
 </form>
 
 <br>
-<br>
 
 
+<hr/>
 
 {% if query %}
 	{% for obj in queryset_list %}
@@ -55,7 +65,5 @@ Enter the last names of the practioner you are looking for and select them
 
 <!-- <input type='text' name='q' placeholder='Search posts' value='{{ request.GET.q }}'/> -->
 
-</body>
-</html>
-
+{% endblock %}
 

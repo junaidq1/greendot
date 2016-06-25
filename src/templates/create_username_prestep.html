@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+<br>
+
+{% block content %}
+
+
+<div class='col-sm-8 col-sm-offset-1'>
+
+<br>
+<br>
+<br>
+
+<h3>To ensure you are (or have been) a Deloitte employee, please answer the following question:</h3>
+<br>
+<br>
+
+What is the name of the annual event where everyone at the firm performs some type of community service?
+<br>
+<br>
+
+<!-- <form action="/your-name/" method="post">
+    
+	<input type="text" name= 'val_ques' class="form-control" placeholder="Answer" >
+	<br>
+
+</form> -->
+
+<form method='POST' action=''> {% csrf_token %}
+		{{form|crispy}}
+	    <input class="btn btn-primary" type="submit" value="Submit">
+</form>
+
+
+{{val_message}}
+
+
+{% endblock %}

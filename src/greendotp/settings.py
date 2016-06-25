@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #third party
-
+    'crispy_forms',  
     #built apps
     'reviews',
 ]
@@ -124,6 +124,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
@@ -139,3 +141,11 @@ ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 
 SITE_ID = 1  #redux parameter
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'greendotpeers@gmail.com'
+EMAIL_HOST_PASSWORD = 'getunbiasedreviews'

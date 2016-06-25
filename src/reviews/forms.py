@@ -19,3 +19,7 @@ class ReviewForm2(forms.ModelForm):
 		"content",
 		"work_again",
 		]
+
+
+class ValidationForm(forms.Form):
+	answer = forms.CharField()

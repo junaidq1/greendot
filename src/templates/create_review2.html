@@ -1,31 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
 
 <!-- DOCTYPE html -->
 
-<html>
-	
-<body>
+
+{% block content %}
 
 
-
-<h1> Create Form - Step 2 </h1>
 
 
 <!-- need to have POST to indicate its not a default get method and action says what url to send it to -->
 <!-- <form method='POST' action=''> {% csrf_token %} -->
 
 
+
+
+<div class='col-sm-8 col-sm-offset-1'>
+
+<h1> Step 2 - Provide feedback on selected practioner</h1>
+
 <br>
 <br>
 
 <h3>This review is about : {{ obj }}</h3>
-
+<br>
 <form method='POST' action=''> {% csrf_token %}
 
-{{form.as_p}}
-<input type='submit' value='Create Review'/>
+{{form|crispy}}
+<input class='btn btn-primary' type='submit' value='Create Review'/>
 </form>
-
+</div>
 <!-- <input type='text' name='q' placeholder='Search posts' value='{{ request.GET.q }}'/> -->
 
-</body>
-</html>
+{% endblock %}

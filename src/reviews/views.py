@@ -2,11 +2,16 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 
 from .models import Review, Employee, Vote, VoteManager
-from .forms import ReviewForm, ReviewForm2
+from .forms import ReviewForm, ReviewForm2, ValidationForm
 from django.db.models import Q
 from django.contrib.auth.models import User #test this guy - remove if needed
 from django.db.models import Count, Sum
+from django.core.mail import send_mail
 # Create your views here.
+
+
+def go_home(request):	
+	return render(request, "home.html", {})
 
 
 def review_list(request):
@@ -16,7 +21,24 @@ def review_list(request):
 		context = {"obj_list": queryset}
 	else:
 		context = {"title": "Unauthenticated List"}
-	return render(request, "index.html", context)  #render takes in request, a template and a context
+	return render(request, "review_list.html", context)  #render takes in request, a template and a context
+
+
+def verify_question(request):
+	# data = request.POST.get('my_form_field_name')	
+	form = ValidationForm(request.POST or None)
+	message =''
+	if form.is_valid():
+		a = form.cleaned_data.get("answer") #request.POST['answer']
+		if (a == 'impact day') or (a == 'Impact Day') or (a == 'Impact day') :
+			return HttpResponseRedirect('/accounts/register/')
+		else:
+			message = "Incorrect Answer"
+	context = {
+	'form': form,
+	'val_message': message,
+	}
+	return render(request, "create_username_prestep.html", context)
 
 # def review_create(request):
 # 	form = ReviewForm(request.POST or None)
@@ -30,10 +52,10 @@ def review_list(request):
 # 	# 	emp = request.POST.get("employee")
 # 		#Review.objects.create(content=cont, employee=Employee.objects.get(pk=emp))
 
-	context = {
-		"form": form,
-	}
-	return render(request, "post_form.html", context)
+	# context = {
+	# 	"form": form,
+	# }
+	# return render(request, "post_form.html", context)
 
 
 def review_create1(request):
