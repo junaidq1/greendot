@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User #test this guy - remove if needed
 from django.db.models import Count, Sum
 from django.core.mail import send_mail
+from django.db.models.signals import post_save
 # Create your views here.
 
 
@@ -84,6 +85,7 @@ def review_create2(request, pk=None):
 		instance = form.save(commit=False)
 		instance.employee = Employee.objects.get(pk=pk)
 		instance.user = request.user
+		#instance.user.userstatus.is_contributor = True 	#added this to trigger true contributor status
 		instance.save()
 		return HttpResponseRedirect('/reviews/create3/')
 	context = {

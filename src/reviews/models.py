@@ -4,6 +4,8 @@ from django.db import models
 from django.core.urlresolvers import reverse
 #from django.contrib.auth import get_user_model
 from django.conf import settings
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 # Create your models here.
 
 
@@ -78,4 +80,52 @@ class Vote(models.Model):
 	class Meta:
 		unique_together = ("review", "employee", "user")
 
+
+#this is an extension of the user model to basically ensure that the user
+# has atleast contributed once before they can see the content on the site
+class UserStatus(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	is_contributor = models.BooleanField(default=False)
+	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+	def get_contr_status(self):
+	    # The user is identified by their email address
+	    return self.is_contributor
+
+	def __string__(self):
+		return self.is_contributor
+
+
+#this is the signal receiver that creates a new model instance for User status
+def userstatus_post_save_receiver(sender, **kwargs):
+	user = kwargs["instance"]
+	if kwargs["created"]:
+		user_status = UserStatus(user=user, is_contributor=False)
+		user_status.save()
+
+#post save signal to create a UserStatus instance every time a new user is built
+post_save.connect(userstatus_post_save_receiver, sender=User)
+
+
+
+
+#this is signal reeiver that changes the contributed status of a user after they submit a review
+def update_contributor_status_receiver(sender, instance, **kwargs):
+	# user = kwargs["instance"]
+	# if kwargs["created"]:
+	# 	#user_status = UserStatus(user=user, is_contributor=False)
+	# 	#user_status.save()
+	# 	user.userstatus.is_contributor = True
+	# 	print "updated users contrib status"
+	# user = kwargs["instance"]
+	user = instance.user
+	UserStatus.objects.filter(user=user).update(is_contributor=True)
+	#user_status = UserStatus(user=user, is_contributor=True)
+	#user_status.save()
+	#print user
+	#user.userstatus.is_contributor = True
+
+
+#this is a post save signal generate once a user submits a review
+post_save.connect(update_contributor_status_receiver, sender=Review)
 

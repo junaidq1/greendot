@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Review, Employee, Vote
+from .models import Review, Employee, Vote, UserStatus
 
 class ReviewModelAdmin(admin.ModelAdmin):
 	list_display = ["pk", "__unicode__", 'employee', 'user', 'timestamp', 'upvotes', 'downvotes']
@@ -33,6 +33,16 @@ class VoteModelAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Vote	
 
+class UserStatusAdmin(admin.ModelAdmin):
+	list_display = ['pk','user', 'is_contributor', 'updated']
+	list_display_links = ['pk','user', 'is_contributor', 'updated']
+
+	search_fields = ['pk','user', 'is_contributor', 'updated']
+	class Meta:
+		model = UserStatus
+
+
 admin.site.register(Review, ReviewModelAdmin) #, Employee) #, Employee) #, EmployeeModelAdmin)
 admin.site.register(Employee, EmployeeModelAdmin)
 admin.site.register(Vote, VoteModelAdmin)
+admin.site.register(UserStatus, UserStatusAdmin)
