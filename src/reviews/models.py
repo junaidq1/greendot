@@ -109,7 +109,7 @@ post_save.connect(userstatus_post_save_receiver, sender=User)
 
 
 
-#this is signal reeiver that changes the contributed status of a user after they submit a review
+#this is signal receiver that changes the contributed status of a user after they submit a review
 def update_contributor_status_receiver(sender, instance, **kwargs):
 	# user = kwargs["instance"]
 	# if kwargs["created"]:
@@ -120,12 +120,9 @@ def update_contributor_status_receiver(sender, instance, **kwargs):
 	# user = kwargs["instance"]
 	user = instance.user
 	UserStatus.objects.filter(user=user).update(is_contributor=True)
-	#user_status = UserStatus(user=user, is_contributor=True)
-	#user_status.save()
-	#print user
-	#user.userstatus.is_contributor = True
 
 
-#this is a post save signal generate once a user submits a review
+
+#this is a post save signal generator once a user submits a review
 post_save.connect(update_contributor_status_receiver, sender=Review)
 

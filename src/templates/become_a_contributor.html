@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+<br>
+
+{% block content %}
+
+<br>
+<br>
+
+<div class='col-sm-8 col-sm-offset-1'>
+<h3> Thanks for signing-up and activating your account </h3>
+<br>
+<p>In order to view the user review content on this site, please provide feedback on at least one green dot practitioner you have worked with </p>
+
+<br>
+<br>
+
+<a href="{% url 'create_step1' %}" class="btn btn-primary" role="button">Provide feedback now</a>
+
+<!-- <a href='{% url "all_reviews" %}'>Back to reviews</a> -->
+
+</div>
+
+{% endblock %}

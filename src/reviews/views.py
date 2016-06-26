@@ -66,7 +66,7 @@ def review_create1(request):
 		queryset_list = queryset_list.filter(
 						Q(last_name__icontains=query)
 						)
-		print queryset_list
+		#print queryset_list
 	context = {
 	"queryset_list":queryset_list,
 	"query": query
@@ -147,7 +147,7 @@ def employee_detail(request, pk=None):
 	rev_list = instance.review_set.all() #.order_by("-count('upvotes')")
 	#rev_list = instance.review_set.all().annotate(num_votes=Count('upvotes')).order_by('-num_votes')
 	rev_list = rev_list.annotate(num_votes=Count('votereview')).order_by('-num_votes')
-	print rev_list
+	#print rev_list
 	#vote_list = instance.vote_set.all()
 	#vote_list = instance.
 	context = {
@@ -187,6 +187,25 @@ def vote_for_review(request, pk=None, pk2=None):
 		"vote_status": vote_status
 	}		
 	return render(request, "voted.html", context)	
+
+
+
+#this function basically controls what the user homepage looks like 
+# based on users authentication status and contributor status
+def goto_userpage(request):
+	if request.user.is_authenticated() and request.user.userstatus.is_contributor:
+		context = {
+		"username": request.user,  #update this
+		} 
+		return render(request, "user_homepage.html", context)
+	else:
+		if request.user.is_authenticated() and request.user.userstatus.is_contributor == False:
+			return render(request, "become_a_contributor.html", {}) 
+		else:
+			return render(request, "please_signup.html", {}) 
+
+
+
 
 
 

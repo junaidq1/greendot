@@ -26,9 +26,9 @@ from reviews import views as emp
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',   emp.go_home, name='going_home_page'),
-    
+    url(r'^myaccount/$', emp.goto_userpage, name='user_homepage'),
     url(r'^reviews/', include("reviews.urls")),
-    url(r'^employees/$', emp.employee_list, name='fsdfasdfds'),
+    url(r'^employees/$', emp.employee_list, name='list_of_all_employees'),
     url(r'^employees/(?P<pk>\d+)/$', emp.employee_detail, name='emp_details'),
     # url(r'^employees2/(?P<pk>\d+)/$', emp.working, name='emp_details2'),  #delete this once QA is complete
     url(r'^employees/(?P<pk>\d+)/(?P<pk2>\d+)/$', emp.vote_for_review, name='r_vote'),
