@@ -16,8 +16,12 @@ class ReviewForm2(forms.ModelForm):
 	class Meta:
 		model = Review
 		fields = [
-		"content",
+		"length_working",
+		"ques1",
+		"ques2",
+		"ques3",
 		"work_again",
+		"content",
 		]
 
 

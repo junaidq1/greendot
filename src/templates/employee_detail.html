@@ -1,51 +1,66 @@
-<!-- DOCTYPE html -->
-<!-- {% load staticfiles %} -->
-<html>
-	
-<body>
+{% extends "base.html" %}
+
+
+{% block content %}
+
+ <div class='container'>
+
+ 		<h3> User Feedback for:  {{instance.first_name}} {{instance.last_name}}</h3>
+ 		
+ 		Office: {{instance.office}}<br>
+ 		Serice Area: {{instance.service_area}}<br>
+ 		Level: {{instance.level}}
+ 		<hr/>
+ 		<div class='row'>
+
+		<div class='col-sm-4'> 
+	    	<div id="spider_container" style="min-width: 520px; max-width: 600px; height: 370px"></div>
+
+		</div>
+
+		<div class="col-sm-2">
+      		<hr width="1" size="200">
+    	</div>
+
+
+		<div class='col-sm-4'> 
+	    	<div id="bar_container" style="min-width: 350px; max-width: 350px; height: 370px"></div>
+
+		</div>
+
+		</div>
+		<hr/>
+
+
+	<div class='row'>
+	<div class='col-offset-1'>
+
+		{% for obj in review_list %}
+			<ul>
+			Review #{{ forloop.counter }} --
+			{{obj}} -
+			Posted By: {{obj.user}} -
+			Total votes: 
+			<!-- {{ obj.votereview.all.count}} -->
+			{{ obj.votereview.fupvotes.count}}
+			<!-- <a href='{% url "r_vote" pk=obj.pk pk2=instance.pk%}'>Upvote</a> -->
+			<a href='{% url "r_vote" pk=instance.pk pk2=obj.pk%}'>Upvote</a>
+			</ul>
+		{% endfor %}
+
+	</div>
 
 
 
-<h1> List of reviews for :  {{instance}}</h1>
+    
 
-<br>
-
-<br>
-
-	<ul>
-	First Name: {{instance.first_name}}
-	</ul>
-	<ul>
-	Last Name: {{instance.last_name}}
-	</ul>
-	<ul>
-	Level: {{instance.level}}
-	</ul>
-	<ul>
-	Office: {{instance.office}}
-	</ul>
-
-<hr/>
-<br>
-
-{% for obj in review_list %}
-	<ul>
-	Review #{{ forloop.counter }} --
-	{{obj}} -
-	Posted By: {{obj.user}} -
-	Total votes: 
-	<!-- {{ obj.votereview.all.count}} -->
-	{{ obj.votereview.fupvotes.count}}
-	<!-- <a href='{% url "r_vote" pk=obj.pk pk2=instance.pk%}'>Upvote</a> -->
-	<a href='{% url "r_vote" pk=instance.pk pk2=obj.pk%}'>Upvote</a>
-	</ul>
-{% endfor %}
+	    <div class='col-sm-4'> 
+	    	<div id="spider_container" style="min-width: 520px; max-width: 600px; height: 400px"></div>
+		</div>		
+    </div>
+</div>
+ 
 
 
 
-
-
-
-</body>
-</html>
-
+{% endblock %}

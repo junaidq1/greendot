@@ -5,7 +5,7 @@ from .models import Review, Employee, Vote, VoteManager
 from .forms import ReviewForm, ReviewForm2, ValidationForm
 from django.db.models import Q
 from django.contrib.auth.models import User #test this guy - remove if needed
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Avg
 from django.core.mail import send_mail
 from django.db.models.signals import post_save
 # Create your views here.
@@ -142,20 +142,45 @@ def employee_list(request):
 # 	}
 # 	return render(request, "employee_detail.html", context)
 
+
+
 def employee_detail(request, pk=None):
 	instance = get_object_or_404(Employee, pk=pk)
 	rev_list = instance.review_set.all() #.order_by("-count('upvotes')")
 	#rev_list = instance.review_set.all().annotate(num_votes=Count('upvotes')).order_by('-num_votes')
 	rev_list = rev_list.annotate(num_votes=Count('votereview')).order_by('-num_votes')
-	#print rev_list
+	ques1_overall_avg = Review.objects.aggregate(Avg('ques1'))
+	ques1_overall_avg = ques1_overall_avg['ques1__avg']
+	ques2_overall_avg = Review.objects.aggregate(Avg('ques2'))
+	ques2_overall_avg = ques2_overall_avg['ques2__avg']
+	ques3_overall_avg = Review.objects.aggregate(Avg('ques3'))
+	ques3_overall_avg = ques3_overall_avg['ques3__avg']
+	ques1_employee_avg = rev_list.aggregate(Avg('ques1'))
+	ques1_employee_avg = ques1_employee_avg['ques1__avg']
+	ques2_employee_avg = rev_list.aggregate(Avg('ques2'))
+	ques2_employee_avg = ques2_employee_avg['ques2__avg']
+	ques3_employee_avg = rev_list.aggregate(Avg('ques3'))
+	ques3_employee_avg = ques3_employee_avg['ques3__avg']
+	work_again_yes = rev_list.filter(work_again__iexact="Y").aggregate(Count('work_again'))	
+	work_again_yes =work_again_yes['work_again__count']
+	work_again_no = rev_list.filter(work_again__iexact="N").aggregate(Count('work_again'))	
+	work_again_no =work_again_no['work_again__count']
 	#vote_list = instance.vote_set.all()
 	#vote_list = instance.
 	context = {
 		"review_list": rev_list,
 		"instance": instance,
-		#"vote_list": vote_list,
+		"ques1_overall_avg": ques1_overall_avg,
+		"ques2_overall_avg": ques2_overall_avg,
+		"ques3_overall_avg": ques3_overall_avg,
+		"ques1_employee_avg": ques1_employee_avg,
+		"ques2_employee_avg": ques2_employee_avg,
+		"ques3_employee_avg": ques3_employee_avg,
+		"work_again_yes": work_again_yes,
+		"work_again_no": work_again_no, 
 	}
 	return render(request, "employee_detail.html", context)
+
 
 
 # def working(request, pk=None):

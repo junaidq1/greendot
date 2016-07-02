@@ -1,0 +1,64 @@
+<script>
+        $(document).ready(function(){
+
+        $(function () {
+        $('#bar_container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Would you work with {{instance.first_name}} again?'
+        },
+
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    allowOverlap: true   
+                }
+            }
+        },
+
+        xAxis: {
+            categories: ['Responses']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Percent of responses'
+            }
+        },
+        tooltip: {
+            pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b> ({point.percentage:.0f}%)<br/>',
+            shared: true
+        },
+        plotOptions: {
+            column: {
+                stacking: 'percent'
+            }
+        },
+        series: [{
+            name: 'Yes',
+            data: [{{work_again_yes}}],
+            color: '#228B22',
+            dataLabels: {
+                    enabled: true,
+                    allowOverlap: true   
+                }
+        }, 
+        {
+            name: 'No',
+            data: [{{work_again_no}}],
+            color: '#B22222',
+            dataLabels: {
+                    enabled: true,  
+            }
+        }]
+        });
+    });
+            
+
+        })
+</script>
+
+<!-- {{instance}} -->
