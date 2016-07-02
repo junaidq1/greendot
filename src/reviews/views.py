@@ -133,17 +133,6 @@ def employee_list(request):
 		context = {"title": "Unauthenticated List"}
 	return render(request, "employee_list.html", context) 
 
-# def employee_detail(request, pk=None):
-# 	instance = get_object_or_404(Employee, pk=pk)
-# 	rev_list = instance.review_set.all()
-# 	context = {
-# 		"review_list": rev_list,
-# 		"instance": instance
-# 	}
-# 	return render(request, "employee_detail.html", context)
-
-
-
 def employee_detail(request, pk=None):
 	instance = get_object_or_404(Employee, pk=pk)
 	rev_list = instance.review_set.all() #.order_by("-count('upvotes')")
@@ -166,7 +155,6 @@ def employee_detail(request, pk=None):
 	work_again_no = rev_list.filter(work_again__iexact="N").aggregate(Count('work_again'))	
 	work_again_no =work_again_no['work_again__count']
 	#vote_list = instance.vote_set.all()
-	#vote_list = instance.
 	context = {
 		"review_list": rev_list,
 		"instance": instance,
@@ -219,8 +207,12 @@ def vote_for_review(request, pk=None, pk2=None):
 # based on users authentication status and contributor status
 def goto_userpage(request):
 	if request.user.is_authenticated() and request.user.userstatus.is_contributor:
+		recent_reviews = Review.objects.all().order_by('-pk')[:5]
+		update recent_voted_reviews after model refresh
+		# recent_voted_reviews = pubs = Review.objects.annotate(ct_votes=Count('vote')).order_by('-num_books')[:5]
 		context = {
 		"username": request.user,  #update this
+		"recent_reviews": recent_reviews,
 		} 
 		return render(request, "user_homepage.html", context)
 	else:

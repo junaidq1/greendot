@@ -3,6 +3,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
+    <title>
+        {% block title %}
+
+        {% endblock %}
+
+    </title>
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,8 +27,10 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="{% static 'css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
 
+
+    <link href="{% static 'css/base.css' %}" rel="stylesheet"/>
     <!-- Custom styles for this template -->
-    <link href="jumbotron.css" rel="stylesheet">
+    <!-- <link href="jumbotron.css" rel="stylesheet"> -->
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -50,7 +60,7 @@
 
   <body>
     
-
+  <link href="{% static 'css/base.css' %}" rel="stylesheet"/>
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <br>
     <br>

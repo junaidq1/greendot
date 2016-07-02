@@ -1,18 +1,40 @@
 {% extends "base.html" %}
 
+{% block title %}
+	Practitioner detail
+{% endblock %}
+
 
 {% block content %}
 
  <div class='container'>
 
- 		<h3> User Feedback for:  {{instance.first_name}} {{instance.last_name}}</h3>
- 		
+ 		<div class='row'>
+		<div class='col-sm-6'> 
+ 		<h3> User Feedback for: <em> {{instance.first_name}} {{instance.last_name}} </em></h3>
+ 	
  		Office: {{instance.office}}<br>
  		Serice Area: {{instance.service_area}}<br>
  		Level: {{instance.level}}
- 		<hr/>
- 		<div class='row'>
+ 		</div>
+		
+		<div class='col-sm-2 col-sm-offset-3'>
+		<br>
+		<br>
+		<button type="button" class="btn btn-primary">Review this practioner</button>
+		<br>
+		<br>
 
+		<button type="button" class="btn btn-default">Go back to home page</button>
+		
+		</div>
+
+		</div>
+
+ 		<hr/>
+ 		
+
+ 		<div class='row'>
 		<div class='col-sm-4'> 
 	    	<div id="spider_container" style="min-width: 520px; max-width: 600px; height: 370px"></div>
 
@@ -30,7 +52,7 @@
 
 		</div>
 		<hr/>
-
+<!-- 
 
 	<div class='row'>
 	<div class='col-offset-1'>
@@ -41,9 +63,9 @@
 			{{obj}} -
 			Posted By: {{obj.user}} -
 			Total votes: 
-			<!-- {{ obj.votereview.all.count}} -->
+		
 			{{ obj.votereview.fupvotes.count}}
-			<!-- <a href='{% url "r_vote" pk=obj.pk pk2=instance.pk%}'>Upvote</a> -->
+	
 			<a href='{% url "r_vote" pk=instance.pk pk2=obj.pk%}'>Upvote</a>
 			</ul>
 		{% endfor %}
@@ -58,6 +80,52 @@
 	    	<div id="spider_container" style="min-width: 520px; max-width: 600px; height: 400px"></div>
 		</div>		
     </div>
+	<hr/> -->
+
+	<div class='row'>
+	<div class='col-offset-1'>
+
+	<h4> Detailed reviews for {{instance.first_name}} </em></h4>
+
+		<table class="table">
+		
+
+				<!-- <div class='col-sm-10 col-sm-offset-2'> -->
+			    <!-- <TABLE BORDER="1"> -->
+			      <THEAD>        
+			        <TR>
+			          <TH style="text-align:center">#</TH>
+			          <TH style="text-align:center">Review Content</TH>
+			          <TH style="text-align:center">Posted by</TH>
+			          <TH style="text-align:center">Votes</TH>
+			          <TH style="text-align:center">Date</TH>
+			        </TR>
+			      </THEAD>
+			      <TBODY>
+			        {% for obj in review_list %}
+			        <TR>
+			          <TD class="vert-align" width="30">{{ forloop.counter }}</TD>
+			          <TD class="vert-align" width="700" >{{obj}}  </TD>
+			          <TD class="vert-hor-align" width="80">{{obj.user}}</TD>
+			          <TD class="vert-hor-align" >
+			          <span class="badge badge-info">{{ obj.votereview.fupvotes.count}} </span> - <a href='{% url "r_vote" pk=instance.pk pk2=obj.pk%}'> Upvote</a> </TD>
+			          <TD class="vert-hor-align">{{ obj.timestamp|date}}</TD>
+			        {% endfor %}
+			        </TR>
+			        
+			      </TBODY>
+			    </TABLE>
+				<!-- </div> -->
+
+
+
+
+
+		</table>
+	</div>
+	</div>
+
+
 </div>
  
 

@@ -1,19 +1,93 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
+
+{% block title %}
+	User homepage: {{username}}
+{% endblock %}
 
 
-<br>
+
 
 {% block content %}
 
-<br>
-<br>
 
-<div class='col-sm-8 col-sm-offset-1'>
-<h3> Welcome {{username}} </h3>
+<div class='container'>
+<h2> Welcome {{username}} </h2>
 <hr/>
+ 	<div class='row'>
+		<div class='col-sm-3 col-sm-offset-1'> 
 
-<br>
+			<br>
+			<br>
+	 		<h4> What would you like to do:</h4>
+	 		<br>
+	 		<br>
+	 		<br>
+			<button type="button" class="btn btn-primary btn-lg btn-block">Search Practitioner Reviews</button>
+			<br>
+			<br>
+			<button type="button" class="btn btn-primary btn-lg btn-block">Leave a review</button>
+			<br>
+			<br>
+			<button type="button" class="btn btn-primary btn-lg btn-block">View my past reviews</button>
+			<br>
+			<br>	
+	 	</div>
+
+	 	<div class='col-sm-1 col-sm-offset-1'> 
+		 	<br>
+		 	<br>
+		 	<br>
+		 	<div class="vertical-line" style="height: 450px;"> </div>	
+	 	</div>
+
+	 	<div class='col-sm-6'> 
+		 	<br>
+		 	<br>
+			 	<div class="cent-text"> 
+			 		<u> 
+			 		<h4>Practitioners Recently Reviewed</h4> 
+			 		</u>
+			 	</div>
+		 		<br>
+
+		 		{% for obj in recent_reviews %}
+					<ul>
+					#{{ forloop.counter }} -
+					<a href='{% url "emp_details" pk=obj.employee.pk %}'>
+					{{obj.employee}} -
+					{{obj.employee.service_area}} -
+					</a>
+					Posted By: {{obj.user}} -
+					{{obj.timestamp|timesince}} ago
+					</ul>
+				{% endfor %}
+				<hr/>
+
+				<div class="cent-text"> 
+			 		<u> 
+			 		<h4>Reviews Recently Upvoted</h4> 
+			 		</u>
+			 		updated after model refresh
+			 	</div>
+		 		<br>
+
+		 		{% for obj in recent_reviews %}
+					<ul>
+					#{{ forloop.counter }} --
+					<a href='{% url "emp_details" pk=obj.employee.pk %}'>
+					{{obj.employee}} --
+					{{obj.employee.service_area}} -
+					</a>
+					Posted By: {{obj.user}}
+					</ul>
+				{% endfor %}
+				<hr/>
+		</div>
+
+
+	</div>
 </div>
+
+
 
 {% endblock %}

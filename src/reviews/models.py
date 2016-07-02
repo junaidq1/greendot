@@ -14,9 +14,9 @@ class Review(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	employee = models.ForeignKey("Employee") #in quotes because model defined later
 	length_working = models.PositiveIntegerField(verbose_name="how long have you worked with this person? (months)?")
-	ques1 = models.PositiveIntegerField(verbose_name="How much did you enjoy working with this person? (5 = most)?", validators=[MinValueValidator(1), MaxValueValidator(5)])
-	ques2 = models.PositiveIntegerField(verbose_name="How much did you learn from this individual while working with them? (5 = most)", validators=[MinValueValidator(1), MaxValueValidator(5)])
-	ques3 = models.PositiveIntegerField(verbose_name="How competent is this person in their area? (5 = most)", validators=[MinValueValidator(1), MaxValueValidator(5)])
+	ques1 = models.PositiveIntegerField(verbose_name="How much did you enjoy working with this person (1-5)? (5 = most)?", validators=[MinValueValidator(1), MaxValueValidator(5)])
+	ques2 = models.PositiveIntegerField(verbose_name="How much did you learn from this individual while working with them (1-5)? (5 = most)", validators=[MinValueValidator(1), MaxValueValidator(5)])
+	ques3 = models.PositiveIntegerField(verbose_name="How competent is this person in their domain of expertise (1-5)? (5 = most)", validators=[MinValueValidator(1), MaxValueValidator(5)])
 	#upvotes = models.IntegerField(null=True, blank=True)
 	#downvotes = models.IntegerField(null=True, blank=True)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
@@ -27,7 +27,7 @@ class Review(models.Model):
 	work_again =  models.CharField(verbose_name="would you work with this person again if you had the choice?", 
 									max_length=1, choices=WORK_AGAIN_CHOICES, null=False)
 	content = models.TextField(verbose_name="Please provide some comments on what it was like to work with this person", 
-									blank=True, max_length=1200)
+									max_length=1200)
 	#updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
 	def __unicode__(self):

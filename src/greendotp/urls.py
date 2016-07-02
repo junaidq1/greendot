@@ -25,7 +25,7 @@ from reviews import views as emp
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$',   emp.go_home, name='going_home_page'),
+    url(r'^$',   emp.go_home, name='generic_homepage'),
     url(r'^myaccount/$', emp.goto_userpage, name='user_homepage'),
     url(r'^reviews/', include("reviews.urls")),
     url(r'^employees/$', emp.employee_list, name='list_of_all_employees'),
