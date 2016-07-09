@@ -7,7 +7,7 @@ from .models import Review, Employee, Vote, UserStatus
 class ReviewModelAdmin(admin.ModelAdmin):
 	list_display = ["pk", "__unicode__",'work_again','employee', 'user', 'timestamp']
 	list_display_links = ["__unicode__", 'employee', 'timestamp']
-	list_filter = ['timestamp']
+	list_filter = ['timestamp', 'user', 'employee']
 	#list_editable
 	search_fields = ['content']
 	class Meta:

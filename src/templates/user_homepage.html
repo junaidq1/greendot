@@ -22,13 +22,13 @@
 	 		<br>
 	 		<br>
 	 		<br>
-			<button type="button" class="btn btn-primary btn-lg btn-block">Search Practitioner Reviews</button>
+			<a href='{% url "search_practitioners" %}' class="btn btn-primary btn-lg btn-block" role="button">Search Practitioner Reviews</a>
 			<br>
 			<br>
-			<button type="button" class="btn btn-primary btn-lg btn-block">Leave a review</button>
+			<a href='{% url "create_step1" %}' class="btn btn-primary btn-lg btn-block" role="button">Leave a review</a>
 			<br>
 			<br>
-			<button type="button" class="btn btn-primary btn-lg btn-block">View my past reviews</button>
+			<a href='{% url "past_user_reviews" pk=username.pk %}' class="btn btn-primary btn-lg btn-block" role="button">View my past reviews</a>
 			<br>
 			<br>	
 	 	</div>
@@ -67,18 +67,18 @@
 			 		<u> 
 			 		<h4>Reviews Recently Upvoted</h4> 
 			 		</u>
-			 		updated after model refresh
 			 	</div>
 		 		<br>
 
-		 		{% for obj in recent_reviews %}
+		 		{% for obj2 in recent_voted_reviews %}
 					<ul>
-					#{{ forloop.counter }} --
-					<a href='{% url "emp_details" pk=obj.employee.pk %}'>
-					{{obj.employee}} --
-					{{obj.employee.service_area}} -
+					#{{ forloop.counter }} -
+					<a href='{% url "emp_details" pk=obj2.employee.pk %}'>
+					{{obj2.employee}} -
+					{{obj2.employee.service_area}} -
+					{{obj2.review.content|truncatechars:50}}...
 					</a>
-					Posted By: {{obj.user}}
+				
 					</ul>
 				{% endfor %}
 				<hr/>

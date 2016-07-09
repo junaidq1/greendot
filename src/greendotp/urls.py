@@ -23,10 +23,18 @@ from reviews import views as emp
 
 #from reviews import views as 
 
+#url(r'^$',   emp.go_home, name='generic_homepage'),    
+#url(r'^myaccount/$', emp.goto_userpage, name='user_homepage'),
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$',   emp.go_home, name='generic_homepage'),
-    url(r'^myaccount/$', emp.goto_userpage, name='user_homepage'),
+    url(r'^$',   emp.goto_userpage, name='user_homepage'),    
+    url(r'^about/$',   emp.about, name='about_us'),
+    
+    url(r'^create0/$', emp.verify_question, name='ver_question'),   
+    url(r'^myaccount/search$', emp.search_practitioner_reviews, name='search_practitioners'),
+    url(r'^myaccount/myreviews/(?P<pk>\d+)/$', emp.view_past_user_reviews, name='past_user_reviews'),
+    #
     url(r'^reviews/', include("reviews.urls")),
     url(r'^employees/$', emp.employee_list, name='list_of_all_employees'),
     url(r'^employees/(?P<pk>\d+)/$', emp.employee_detail, name='emp_details'),

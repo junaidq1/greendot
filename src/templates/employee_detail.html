@@ -21,11 +21,11 @@
 		<div class='col-sm-2 col-sm-offset-3'>
 		<br>
 		<br>
-		<button type="button" class="btn btn-primary">Review this practioner</button>
+		<!-- **fix this link -->
+		<a href='{% url "create_step2" pk=instance.pk %}' class="btn btn-primary" role="button">Review this practioner</a>
 		<br>
 		<br>
-
-		<button type="button" class="btn btn-default">Go back to home page</button>
+		<a href='{% url "user_homepage" %}' class="btn btn-default" role="button">Go back to home page</a>
 		
 		</div>
 
@@ -59,7 +59,7 @@
 
 		{% for obj in review_list %}
 			<ul>
-			Review #{{ forloop.counter }} --
+			Review #{{ forloop.counter }} 
 			{{obj}} -
 			Posted By: {{obj.user}} -
 			Total votes: 
@@ -71,14 +71,6 @@
 		{% endfor %}
 
 	</div>
-
-
-
-    
-
-	    <div class='col-sm-4'> 
-	    	<div id="spider_container" style="min-width: 520px; max-width: 600px; height: 400px"></div>
-		</div>		
     </div>
 	<hr/> -->
 
@@ -87,15 +79,13 @@
 
 	<h4> Detailed reviews for {{instance.first_name}} </em></h4>
 
-		<table class="table">
-		
-
+		<table class="table">	
 				<!-- <div class='col-sm-10 col-sm-offset-2'> -->
 			    <!-- <TABLE BORDER="1"> -->
 			      <THEAD>        
 			        <TR>
 			          <TH style="text-align:center">#</TH>
-			          <TH style="text-align:center">Review Content</TH>
+			          <TH style="text-align:left">Review Content</TH>
 			          <TH style="text-align:center">Posted by</TH>
 			          <TH style="text-align:center">Votes</TH>
 			          <TH style="text-align:center">Date</TH>
@@ -116,11 +106,6 @@
 			      </TBODY>
 			    </TABLE>
 				<!-- </div> -->
-
-
-
-
-
 		</table>
 	</div>
 	</div>

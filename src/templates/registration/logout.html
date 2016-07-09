@@ -2,5 +2,25 @@
 {% load i18n %}
 
 {% block content %}
-<p>{% trans "Logged out" %}</p>
+<br>
+<br>
+<div class='container'>
+
+
+	<div class='row'> 		
+		<div class='col-sm-5 col-sm-offset-4'>
+
+
+	<h3>You have been {% trans "Logged out" %}</h3>
+	<br>
+	<h4>Thanks for visiting the site</h4>
+	<br>
+	<br>
+	<br>
+	<a href='{% url "user_homepage" %}'>Return to homepage</a>
+
+	</div>
+	</div>
+</div>
+
 {% endblock %}

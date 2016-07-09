@@ -14,6 +14,8 @@ from django.db.models.signals import post_save
 def go_home(request):	
 	return render(request, "home.html", {})
 
+def about(request):
+	return render(request, "about.html", {})
 
 def review_list(request):
 	queryset = Review.objects.all()
@@ -154,6 +156,7 @@ def employee_detail(request, pk=None):
 	work_again_yes =work_again_yes['work_again__count']
 	work_again_no = rev_list.filter(work_again__iexact="N").aggregate(Count('work_again'))	
 	work_again_no =work_again_no['work_again__count']
+	rand_num = 23 / float(100) #test
 	#vote_list = instance.vote_set.all()
 	context = {
 		"review_list": rev_list,
@@ -165,8 +168,10 @@ def employee_detail(request, pk=None):
 		"ques2_employee_avg": ques2_employee_avg,
 		"ques3_employee_avg": ques3_employee_avg,
 		"work_again_yes": work_again_yes,
-		"work_again_no": work_again_no, 
+		"work_again_no": work_again_no,
+		"rand_num": rand_num,
 	}
+	print rand_num
 	return render(request, "employee_detail.html", context)
 
 
@@ -208,22 +213,51 @@ def vote_for_review(request, pk=None, pk2=None):
 def goto_userpage(request):
 	if request.user.is_authenticated() and request.user.userstatus.is_contributor:
 		recent_reviews = Review.objects.all().order_by('-pk')[:5]
-		update recent_voted_reviews after model refresh
-		# recent_voted_reviews = pubs = Review.objects.annotate(ct_votes=Count('vote')).order_by('-num_books')[:5]
+		#update recent_voted_reviews after model refresh
+		recent_voted_reviews = Vote.objects.all().order_by('-pk')[:5]
 		context = {
 		"username": request.user,  #update this
 		"recent_reviews": recent_reviews,
+		"recent_voted_reviews": recent_voted_reviews,
 		} 
 		return render(request, "user_homepage.html", context)
 	else:
 		if request.user.is_authenticated() and request.user.userstatus.is_contributor == False:
 			return render(request, "become_a_contributor.html", {}) 
 		else:
-			return render(request, "please_signup.html", {}) 
+			#return render(request, "please_signup.html", {})
+			return render(request, "home.html", {})  
 
 
+def search_practitioner_reviews(request):
+	queryset_list = Employee.objects.all()
+	query = request.GET.get("q1")
+	if query:  #add an or here
+		queryset_list = queryset_list.filter(
+						Q(last_name__icontains=query)
+						)
+		#print queryset_list
+	context = {
+	"queryset_list":queryset_list,
+	"query": query
+	}
+	return render(request, "search_practitioners1.html", context)
+		#return HttpResponseRedirect('/reviews/create2/')
 
 
-
+def view_past_user_reviews(request, pk=None):
+	user_review_queryset = Review.objects.filter(user=request.user).order_by('-timestamp')
+	#review_votes = user_review_queryset.annotate(num_votes=Count('votereview'))
+	user_review_queryset = user_review_queryset.annotate(num_votes=Count('votereview'))
+	
+	#ques1_overall_avg = Review.objects.aggregate(Avg('ques1'))
+	#print aa
+	context = {
+	"username": request.user,  
+	"user_review_queryset": user_review_queryset,
+	#"review_votes": review_votes,
+	}
+	return render(request, "all_reviews_by_user.html", context)
+	
 
 

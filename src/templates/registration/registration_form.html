@@ -15,8 +15,12 @@
 
 
 <div class="row">
-<div class="col-md-6 col-sm-offset-1">
-Note: for your username, do not use your actual name if you wish to maintain anonymity
+<!-- <div class="col-md-6 col-sm-offset-1"> -->
+<div class='col-sm-5 col-sm-offset-3'>
+
+<h3> Sign-up now for free </h3>
+<br>
+<i>Note: Do not use your actual name for your username if you wish to maintain anonymity</i>
 <br>
 <br>
 
@@ -24,7 +28,7 @@ Note: for your username, do not use your actual name if you wish to maintain ano
 	  {% csrf_token %}
 	  <!-- {{ form.as_p }} -->
 	  {{ form|crispy }}
-	  <input type="submit" value="{% trans 'Submit' %}" />
+	  <input type="submit" class="btn btn-primary btn-block" value="{% trans 'Submit' %}" />
 	</form>
 </div>
 </div>

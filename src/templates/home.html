@@ -4,30 +4,37 @@
 <div class="jumbotron">
       <div class="container">
         <!-- <h1>Welcome Deloitter</h1> -->
-        <p><h2>Welcome to green dot peers, the definitive location to find and share feedback anonymously on SCs, Ms, SMs and PPDs at Deloitte Consulting</h2></p>
+        <p><h2>Welcome to greendotpeers.com, the definitive location to find and share feedback anonymously on SCs, Ms, SMs and PPDs at Deloitte Consulting</h2></p>
+        
         <p>Let's face it, consultants work pretty hard. Liking the senior folks you work with is essential to enduring those long hours you put in on the road. Use this portal to find intel on potential teams prior to accepting that staffing request and to give others a glimpse of what it was like to work with the folks you worked with. The goal is to bare it all, the good, bad & the... ahem, ugly </p>
-        <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
+        <p><a class="btn btn-primary btn-lg" href='{% url "about_us" %}' role="button">Learn more &raquo;</a></p>
+
       </div>
     </div>
 
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        <div class="col-md-5">
+          <h3>Announcing our beta launch</h3>
+          <p>greendotpeers.com has officially launched in Beta in July 2016</p>
+
+          <p>As part of the launch promotion, we will provide raw csv/API data access to the members who provide 15 completed reviews</p>
+          
+          <p>We are currently providing a community for S&O practitioners, however, that will
+          soon be expanded to include other service lines as well</p>
+          
         </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+  
+        <div class="col-md-3">
+  
+        </div>
+        <div class="col-md-3">
+          <h3>Sign-up and access the data for free!</h3>
+          <br>
+          <p><a class="btn btn-success btn-block btn-lg" href='{% url "ver_question" %}' role="button">Sign-up Now &raquo;</a></p>
        </div>
-        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-        </div>
+      
       </div>
 
       <hr>

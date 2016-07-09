@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}
+	List of all reviews
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class='container'>
+<h3> All past practitioner reviews posted by: {{username}} </h3>
+<hr/>
+ 	<div class='row'>
+		<div class='col-sm-12'> 
+
+		<br>
+
+		<table class="table">
+
+			      <THEAD>        
+			        <TR>
+			          <TH style="text-align:center">#</TH>
+			          <TH style="text-align:center">Practioner</TH>
+			          <TH style="text-align:center">Enjoyed working with?</TH>
+			          <TH style="text-align:center">Learned from?</TH>
+			          <TH style="text-align:center" >How competent?</TH>
+			          <TH style="text-align:center">Work with them again?</TH>
+			          <TH style="text-align:center" width="400">Review Content</TH>
+			          <TH style="text-align:center">Date</TH>
+			          <TH style="text-align:center">Upvotes</TH>
+			        </TR>
+			      </THEAD>
+			      <TBODY>
+			        {% for obj in user_review_queryset %}
+			        <TR>
+			          <TD class="vert-align" width="30">{{ forloop.counter }}</TD>
+			          <TD class="vert-align" >{{obj.employee}} </TD>
+			          <TD class="vert-hor-align">{{obj.ques1}}</TD>
+			          <TD class="vert-hor-align">{{obj.ques2}}</TD>
+			          <TD class="vert-hor-align">{{obj.ques3}}</TD>
+			          <TD class="vert-hor-align">{{obj.work_again}}</TD>
+			          <TD class="vert-align" width="550" >{{obj.content}}</TD>
+			          <TD class="vert-hor-align">{{ obj.timestamp|date}}</TD>
+			          <TD class="vert-hor-align"><span class="badge badge-info">{{obj.num_votes}}</span></TD>
+			        {% endfor %}
+			        </TR>
+			        
+			      </TBODY>
+			    </TABLE>
+
+			    {% for ct in review_votes %}
+			    <ul>
+			    {{ct.num_votes}}
+			    </ul>
+			    {% endfor %}
+		<br>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}
+

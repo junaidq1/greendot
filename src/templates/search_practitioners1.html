@@ -9,7 +9,7 @@
 
 
 <div class='col-sm-8 col-sm-offset-1'>
-<h2> Step 1 - Identify practitioner you would like to review</h2>
+<h1>Identify Practitioner</h1>
 
 
 <!-- need to have POST to indicate its not a default get method and action says what url to send it to -->
@@ -19,7 +19,7 @@
 <br>
 <br>
 
-Enter the last name of the practioner you are looking to leave a review for and select them
+Enter the last names of the consulting practioner you are looking for and select them
 
 <br>
 <br>
@@ -48,7 +48,7 @@ Enter the last name of the practioner you are looking to leave a review for and 
 	{{obj.service_area}} -
 	{{obj.level}} -
 	{{obj.office}} -
-	<a href='{% url "create_step2" pk=obj.pk %}'> Select </a>
+	<a href='{% url "emp_details" pk=obj.pk %}'> Select </a>
 	
 	</ul>
 	<hr/>

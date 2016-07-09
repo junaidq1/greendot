@@ -78,11 +78,7 @@ class Vote(models.Model):
 	def __string__(self):
 		return self.user
 		#return unicode(self.upvotes) or u''
-
-	# @property
-	# def vote_key(self):
-	# 	return ''.join([self.review, '-', self.employee, '-', self.user])
-
+		
 	class Meta:
 		unique_together = ("review", "employee", "user")
 

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+	greendotpeers: About Us
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<div class='container'>
+
+		<h3>About greendotpeers</h3>
+		<hr/>
+		
+		<div class='row'> 		
+ 		<div class='col-sm-11'>
+ 		
+ 		<p class='lead text-align-center'>
+ 		greendotpeers.com is the definitive location to find and share feedback anonymously on SCs, Ms, SMs and PPDs at Deloitte Consulting . It is a portal where consulting practitioners at the firm can obtain and provide feedback on their colleagues anonymously </p>
+ 		
+
+		<p class='lead text-align-center'>
+ 		Management Consulting firms operate under a unique talent model. Junior practitioners are recruited into a talent pool with no direct managerial reporting heirarchy. The expectation at the firm is that they will own their own career and be responsible for utilization metrics. The way to do that is by getting to know senior practitioners and having them staff you on the enagegements they sell. 
+ 		</p>
+ 		<p class='lead text-align-center'>
+ 		Yet, for a business model that is built on leveraging data for adding value, there is surprisingly little data available to junior practitioners on the prospective senior folks they can choose to work with.
+ 		</p>
+	 	</div>
+ 		</div>
+ 		<div class='row'>
+		
+		<!-- <div class='col-sm-5 col-sm-offset-1'> -->
+		<div class='col-sm-5'> 
+			<!-- <img src='{% static "img/greendotp_learn.png"}' class="img-responsive"/> -->
+			<!-- <img src='http://img2.10bestmedia.com/Images/Photos/96123/captiva-beach-captiva_54_990x660_201404211817.jpg' class="img-responsive"/> -->
+
+			<img src="{% static 'img/greendotp_learn.png' %}" class="img-responsive"/>
+		</div>
+		
+		<div class='col-sm-6'>
+			
+			<p class='lead text-align-center'>
+	 			Engagement teams are the one variable that tend to have the single greatest impact on the quality of a junior practitioner's project experiece. greendotpeers.com aims to provide practitioners with data needed to conduct diligence on prospective SC's, M's, SM's and PPDs so they can make more imformed staffing decisions. </p>	
+	 		<p class='lead text-align-center'>
+	 			The portal provides detailed ratings on how much previous team members enjoyed working with a particular practitioner, how much they learned from them, how competent they were in their area of expertise and most importantly, whether they would work with the practitioner in question again.
+	 		</p>
+		</div>
+		</div>
+
+		<br>
+
+		<div class='row'>
+		<div class='col-sm-4 col-sm-offset-3'>	
+			<a href='{% url "ver_question" %}' class="btn btn-primary btn-lg btn-block" role="button"> Sign-up Now </a>
+			<br>
+			<br>
+			<a href='{% url "user_homepage" %}' class="btn btn-default btn-lg btn-block" role="button"> Return Home </a>
+			<br>
+		</div>
+		</div>
+	<!-- 	<div class='row'> 		
+ 		<div class='col-sm-11'>
+ 			<p class='lead text-align-center'>
+	 		Engagement teams are the one variable that tend to have the single greatest impact on the quality of a junior practitioner's project experiece. greendotpeers goal is to help junior practitioners improve the quality of their engagement experiences by conducting diligence on prospective SC's, M's, SM's and PPDs. The portal provides data on 
+	 		</p>
+		</div>
+		</div> 	 -->
+
+</div>
+
+
+{% endblock %}
