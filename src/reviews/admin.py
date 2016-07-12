@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Review, Employee, Vote, UserStatus
+from .models import Review, Employee, Vote, UserStatus, UserLevel
 
 class ReviewModelAdmin(admin.ModelAdmin):
 	list_display = ["pk", "__unicode__",'work_again','employee', 'user', 'timestamp']
@@ -41,8 +41,17 @@ class UserStatusAdmin(admin.ModelAdmin):
 	class Meta:
 		model = UserStatus
 
+class UserLevelAdmin(admin.ModelAdmin):
+	list_display = ['pk','user', 'level', 'updated']
+	list_display_links = ['pk','user', 'level', 'updated']
+
+	search_fields = ['pk','user', 'level', 'updated']
+	class Meta:
+		model = UserLevel
+
 
 admin.site.register(Review, ReviewModelAdmin) #, Employee) #, Employee) #, EmployeeModelAdmin)
 admin.site.register(Employee, EmployeeModelAdmin)
 admin.site.register(Vote, VoteModelAdmin)
 admin.site.register(UserStatus, UserStatusAdmin)
+admin.site.register(UserLevel, UserLevelAdmin)

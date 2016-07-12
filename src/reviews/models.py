@@ -9,7 +9,7 @@ from django.db.models.signals import post_save
 from django.core.validators import MaxValueValidator, MinValueValidator 
 # Create your models here.
 
-
+# core review model
 class Review(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	employee = models.ForeignKey("Employee") #in quotes because model defined later
@@ -40,7 +40,7 @@ class Review(models.Model):
 	class Meta:
 		unique_together = (("user", "employee"),)  #really important - prevents dups
 
-
+# employee model (aka practitioner who will be rated)
 class Employee(models.Model):
 	first_name = models.CharField(max_length=120)
 	last_name = models.CharField(max_length=120)
@@ -96,6 +96,16 @@ class UserStatus(models.Model):
 
 	def __string__(self):
 		return self.is_contributor
+
+
+####### A model to capture the level of users signing up to the site
+class UserLevel(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	level = models.CharField(max_length=15, null=False)
+	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+	def __string__(self):
+		return self
 
 
 #this is the signal receiver that creates a new model instance for User status

@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import Review, Employee
-
+from registration.forms import RegistrationFormUniqueEmail #this is to edit the registration redux form
 
 # class ReviewForm(forms.ModelForm):
 # 	class Meta:
@@ -12,6 +12,20 @@ from .models import Review, Employee
 # 		"work_again",
 # 		]
 
+#this form edits the registration redux form
+class UserLevelRegistrationForm(RegistrationFormUniqueEmail):
+	LEVEL_CHOICES = (
+		('PPD', 'PPD'),
+		('BA', 'BA'),
+		('C', 'C'),
+		('SC', 'SC'),
+		('M', 'M'),
+		('SM', 'SM'),
+		('Other', 'other'),
+	)
+	level =  forms.ChoiceField(choices=LEVEL_CHOICES, label="What is your level at the firm?")
+
+#actual review post form
 class ReviewForm2(forms.ModelForm):
 	class Meta:
 		model = Review
@@ -24,6 +38,7 @@ class ReviewForm2(forms.ModelForm):
 		"content",
 		]
 
+# form to validate that person signing up knows the answer to the impact day question
 class ValidationForm(forms.Form):
 	answer = forms.CharField()
 
@@ -51,8 +66,6 @@ class ReportDataForm(forms.Form):
 	level = forms.CharField(label="Level of practitoner", max_length=120)
 	office = forms.CharField(label="Office of practitoner", max_length=120)
 	message = forms.CharField(label="Describe data issue")
-
-
 
 
 

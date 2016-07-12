@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from .models import Review, Employee, Vote, VoteManager
-from .forms import ReviewForm2, ValidationForm, ContactForm, AccessIssuesForm, ReportDataForm
+from .models import Review, Employee, Vote, VoteManager, UserLevel
+from .forms import ReviewForm2, ValidationForm, ContactForm, AccessIssuesForm, ReportDataForm, UserLevelRegistrationForm
 from django.db.models import Q
 from django.contrib.auth.models import User #test this guy - remove if needed
 from django.db.models import Count, Sum, Avg
@@ -10,7 +10,10 @@ from django.core.mail import send_mail
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.contrib import messages
+from registration.backends.default.views import RegistrationView
 # Create your views here.
+
+
 
 
 def go_home(request):	

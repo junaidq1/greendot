@@ -18,7 +18,8 @@ from django.contrib import admin
 
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.conf.urls import include, url
+from . import regbackend
 from reviews import views as emp 
 
 #from reviews import views as 
@@ -30,6 +31,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',   emp.goto_userpage, name='user_homepage'),    
     url(r'^about/$',   emp.about, name='about_us'),
+    #custom registration backend link
+    url(r'^accounts/register/$', regbackend.MyRegistrationView.as_view(), name='registration_register'),
     
     url(r'^create0/$', emp.verify_question, name='ver_question'),   
     url(r'^myaccount/search$', emp.search_practitioner_reviews, name='search_practitioners'),
@@ -44,7 +47,8 @@ urlpatterns = [
     #Contact_us links
     url(r'^provide_feedback/$',   emp.provide_feedback, name='provide_feedback'),
     url(r'^access_issues/$',   emp.access_issues, name='access_issues'),
-    url(r'^report_data_issues/$',   emp.report_data_issues, name='report_data_issues')
+    url(r'^report_data_issues/$',   emp.report_data_issues, name='report_data_issues'),
+    
 ]
 
 if settings.DEBUG:
