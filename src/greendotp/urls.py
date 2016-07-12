@@ -41,6 +41,10 @@ urlpatterns = [
     # url(r'^employees2/(?P<pk>\d+)/$', emp.working, name='emp_details2'),  #delete this once QA is complete
     url(r'^employees/(?P<pk>\d+)/(?P<pk2>\d+)/$', emp.vote_for_review, name='r_vote'),
     url(r'^accounts/', include('registration.backends.default.urls')),
+    #Contact_us links
+    url(r'^provide_feedback/$',   emp.provide_feedback, name='provide_feedback'),
+    url(r'^access_issues/$',   emp.access_issues, name='access_issues'),
+    url(r'^report_data_issues/$',   emp.report_data_issues, name='report_data_issues')
 ]
 
 if settings.DEBUG:

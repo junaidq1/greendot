@@ -13,6 +13,8 @@ from .views import (
 	review_create1, 
 	review_create2, 
 	review_create3,
+	rev_error,
+	vote_error,
 	)
 
 urlpatterns = [
@@ -26,6 +28,7 @@ urlpatterns = [
     url(r'^create1/$', review_create1, name='create_step1'),
     url(r'^create2/(?P<pk>\d+)/$', review_create2, name='create_step2'),
     url(r'^create3/$', review_create3, name='create_step3'),
-
+    url(r'^error/$', rev_error, name='rev_error'),
+    url(r'^vote_error/$', vote_error, name='vote_error'),
 
 ]

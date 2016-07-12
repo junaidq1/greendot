@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
-
+from django.contrib.auth.decorators import login_required
 from .models import Review, Employee, Vote, VoteManager
-from .forms import ReviewForm, ReviewForm2, ValidationForm
+from .forms import ReviewForm2, ValidationForm, ContactForm, AccessIssuesForm, ReportDataForm
 from django.db.models import Q
 from django.contrib.auth.models import User #test this guy - remove if needed
 from django.db.models import Count, Sum, Avg
 from django.core.mail import send_mail
 from django.db.models.signals import post_save
+from django.conf import settings
+from django.contrib import messages
 # Create your views here.
 
 
@@ -17,10 +19,11 @@ def go_home(request):
 def about(request):
 	return render(request, "about.html", {})
 
+@login_required
 def review_list(request):
 	queryset = Review.objects.all()
 
-	if request.user.is_authenticated():
+	if request.user.is_superuser:
 		context = {"obj_list": queryset}
 	else:
 		context = {"title": "Unauthenticated List"}
@@ -76,7 +79,6 @@ def review_create1(request):
 	return render(request, "create_review1.html", context)
 		#return HttpResponseRedirect('/reviews/create2/')
 
-
 def review_create2(request, pk=None):
 	#form = ReviewForm(request.POST or None)
 	#instance = get_object_or_404(Review, pk=pk) #this is what was working_1
@@ -84,20 +86,28 @@ def review_create2(request, pk=None):
 	form = ReviewForm2(request.POST or None)
 	obj = Employee.objects.get(pk=pk)
 	if form.is_valid():
-		instance = form.save(commit=False)
-		instance.employee = Employee.objects.get(pk=pk)
-		instance.user = request.user
-		#instance.user.userstatus.is_contributor = True 	#added this to trigger true contributor status
-		instance.save()
-		return HttpResponseRedirect('/reviews/create3/')
+		try:
+			instance = form.save(commit=False)
+			instance.employee = Employee.objects.get(pk=pk)
+			instance.user = request.user
+			#instance.user.userstatus.is_contributor = True 	#added this to trigger true contributor status
+			instance.save()
+			return HttpResponseRedirect('/reviews/create3/')
+		except:
+			return HttpResponseRedirect('/reviews/error/')
 	context = {
 		"form": form,
 		"obj": obj,
 	}
 	return render(request, "create_review2.html", context)
 
+
+def rev_error(request):
+	return render(request, "cant_review_twice.html", {})
+
 def review_create3(request):
 	return render(request, "create_review3.html", {})
+
 
 
 def review_detail(request, pk=None):
@@ -125,11 +135,11 @@ def review_detail(request, pk=None):
 def review_delete(request):
 	return HttpResponse("<h1>delete</h1>")
 
-
+@login_required
 def employee_list(request):
 	queryset = Employee.objects.all()
 
-	if request.user.is_authenticated():
+	if request.user.is_superuser:
 		context = {"obj_list": queryset}
 	else:
 		context = {"title": "Unauthenticated List"}
@@ -175,38 +185,28 @@ def employee_detail(request, pk=None):
 	return render(request, "employee_detail.html", context)
 
 
-
-# def working(request, pk=None):
-# 	instance = get_object_or_404(Employee, pk=2)
-# 	rev_list = instance.review_set.all()
-# 	#vote_list = instance.vote_set.all()
-# 	#vote_list = instance.
-# 	context = {
-# 		"review_list": rev_list,
-# 		"instance": instance,
-# 		#"vote_list": vote_list,
-# 	}
-# 	return render(request, "working.html", context)
-
-
 def vote_for_review(request, pk=None, pk2=None):
 	emp_instance = get_object_or_404(Employee, pk=pk)
 	rev_instance = get_object_or_404(Review, pk=pk2)
 	#print emp_instance
 	#print rev_instance
+	vote_status = "unsuccessfully"
 	if request.user.is_authenticated():
-		us = request.user
-		Vote.objects.create(user = us, review=rev_instance, employee= emp_instance, upvotes=True) 
-		#content=cont, employee=Employee.objects.get(pk=emp))
-		vote_status = "successfully"
-	else:
-		vote_status = "unsuccessfully"
+		try:
+			us = request.user
+			Vote.objects.create(user = us, review=rev_instance, employee= emp_instance, upvotes=True) 
+			#content=cont, employee=Employee.objects.get(pk=emp))
+			vote_status = "successfully"
+		except:
+			return HttpResponseRedirect('/reviews/vote_error/')
 	context = {
 		"vote_status": vote_status
 	}		
 	return render(request, "voted.html", context)	
 
 
+def vote_error(request):
+	return render(request, "cant_vote_twice.html", {})
 
 #this function basically controls what the user homepage looks like 
 # based on users authentication status and contributor status
@@ -258,6 +258,113 @@ def view_past_user_reviews(request, pk=None):
 	#"review_votes": review_votes,
 	}
 	return render(request, "all_reviews_by_user.html", context)
-	
+
+
+##########################################################################################
+##########################################################################################
+################## BELOW HERE ARE FEEDBACK EMAIL FUNCTIONS ###############################	
+def provide_feedback(request):
+	form = ContactForm(request.POST or None)
+	if form.is_valid():
+		form_email = form.cleaned_data.get("contact_email")
+		form_message = form.cleaned_data.get("message")
+		if form.cleaned_data.get("username"):
+			form_username = form.cleaned_data.get("username")
+		else:
+			form_username = 'not provided' 
+		#print email, message, full_name
+		subject = 'Providing General Feedback'
+		from_email = settings.EMAIL_HOST_USER
+		to_email = [from_email]
+		contact_message = "username:%s___ Message: %s ____ Sent_by %s"%( 
+				form_username, 
+				form_message, 
+				form_email)
+		# some_html_message = """
+		# <h1>hello</h1>
+		# """
+		send_mail(subject, 
+				contact_message, 
+				from_email, 
+				to_email, 
+				#html_message=some_html_message,
+				fail_silently=False)
+		messages.success(request, 'Thanks! Your feedback has been submitted')
+		return HttpResponseRedirect('/')
+	context = {
+		"form": form,
+		#"messages": messages,
+	}
+	return render(request, "provide_feedback.html", context)
+
+def access_issues(request):
+	form = AccessIssuesForm(request.POST or None)
+	if form.is_valid():
+		form_email = form.cleaned_data.get("contact_email")
+		form_message = form.cleaned_data.get("message")
+		if form.cleaned_data.get("username"):
+			form_username = form.cleaned_data.get("username")
+		else:
+			form_username = 'not provided' 
+		subject = 'Reporting Access Issues'
+		from_email = settings.EMAIL_HOST_USER
+		to_email = [from_email]
+		contact_message = "username:%s___ Message: %s ____ Sent_by %s"%( 
+				form_username, 
+				form_message, 
+				form_email)
+		send_mail(subject, 
+				contact_message, 
+				from_email, 
+				to_email, 
+				#html_message=some_html_message,
+				fail_silently=False)
+		messages.success(request, 'Thanks! Your Access Issue message been submitted')
+		return HttpResponseRedirect('/')
+	context = {
+		"form": form,
+		#"messages": messages,
+	}
+	return render(request, "access_issues.html", context)
+
+@login_required
+def report_data_issues(request):
+	form = ReportDataForm(request.POST or None)
+	if form.is_valid():
+		form_username = request.user
+		form_email = request.user.email
+		form_data_issue = form.cleaned_data.get("data_issue")
+		form_practitioner_first_name = form.cleaned_data.get("practitioner_first_name")
+		form_practitioner_last_name = form.cleaned_data.get("practitioner_last_name")
+		form_service_area = form.cleaned_data.get("service_area")
+		form_level = form.cleaned_data.get("level")
+		form_office = form.cleaned_data.get("office")
+		form_message = form.cleaned_data.get("message")
+		subject = 'Missing/Incorrect data reported by portal user'
+		from_email = settings.EMAIL_HOST_USER
+		to_email = [from_email]
+		contact_message = "data_issue:%s_ first_name:%s| last_name:%s| service_area:%s| level:%s| office:%s|  Message: %s|   Reported by: %s|	 email: %s"%( 
+				form_data_issue,
+				form_practitioner_first_name,
+				form_practitioner_last_name,
+				form_service_area,
+				form_level,
+				form_office,
+				form_message,
+				form_username, 
+				form_email)
+		send_mail(subject, 
+				contact_message, 
+				from_email, 
+				to_email, 
+				#html_message=some_html_message,
+				fail_silently=False)
+		messages.success(request, 'Thanks for reporting missing/incorrect data. Your feedback will be reviewed soon')
+		return HttpResponseRedirect('/')
+	context = {
+		"form": form,
+		#"messages": messages,
+	}
+	return render(request, "report_data.html", context)
 
 

@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+
+
+
+<div class='container'>
+
+
+	<div class='row'> 		
+		<div class='col-sm-9 col-sm-offset-1'>
+
+<h3>Plese use the form below to report Incorrect or Missing data on this portal</h3>
+
+<br>
+<br>
+
+<form method='POST' action=''>{% csrf_token %}
+{{ form|crispy }}
+
+<input class='btn btn-primary' type='submit' value='Submit Feedback' />
+
+</form>
+
+<br>
+{% if messages %}
+<ul class="messages">
+    {% for msg in messages %}       
+    
+      <div class="alert alert-{{msg.level_tag}}" role="alert">
+ 	{{msg.message}}
+	</div>
+    
+    {% endfor %}
+</ul>
+{% endif %}
+
+
+
+
+<br>
+
+
+<a href='{% url "user_homepage" %}'>Back to homepage</a>
+
+<!-- <input type='text' name='q' placeholder='Search posts' value='{{ request.GET.q }}'/> -->
+
+	</div>
+	</div>
+</div>
+
+
+
+{% endblock %}

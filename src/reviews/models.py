@@ -27,7 +27,7 @@ class Review(models.Model):
 	work_again =  models.CharField(verbose_name="would you work with this person again if you had the choice?", 
 									max_length=1, choices=WORK_AGAIN_CHOICES, null=False)
 	content = models.TextField(verbose_name="Please provide some comments on what it was like to work with this person", 
-									max_length=1200)
+									max_length=1500)
 	#updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
 	def __unicode__(self):

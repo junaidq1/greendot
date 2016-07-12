@@ -1,6 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% if messages %}
+<div class='row'>
+    <div class='col-sm-8 col-sm-offset-2'> 
+    <ul class="messages">
+    {% for msg in messages %}       
+    
+      <div class="alert alert-{{msg.level_tag}}" role="alert">
+      {{msg.message}}
+      </div>
+    
+    {% endfor %}
+    </ul>
+  </div>
+  </div>
+{% endif %}
+
+
 <div class="jumbotron">
       <div class="container">
         <!-- <h1>Welcome Deloitter</h1> -->
