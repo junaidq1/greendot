@@ -14,8 +14,6 @@ from registration.backends.default.views import RegistrationView
 # Create your views here.
 
 
-
-
 def go_home(request):	
 	return render(request, "home.html", {})
 

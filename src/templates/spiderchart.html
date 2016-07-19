@@ -1,6 +1,24 @@
 <script>
         $(document).ready(function(){
 
+        //added in later
+        function getRatio(ratio)
+        {
+        if(ratio >= 0)
+            return 'above';
+        if(ratio <0)
+            return 'below';
+        }
+
+        function getColor(ratio)
+        {
+        if(ratio >= 0)
+            return '#228B22';
+        if(ratio <0)
+            return '#B22222';
+        }
+
+
         $(function () {
 
 
@@ -47,11 +65,51 @@
             }
         },
 
+        // original
+        // tooltip: {
+        //     shared: true,
+        //     pointFormat: '<span style="color:{series.color}"> {series.name}: <b>{point.y:,.#f}</b><br/>',
+        //     valueDecimals: 1,
+        // },
+    
+        //  tooltip: {
+        //   shared: true,
+        //   useHTML: true,
+        //   formatter: function() {
+        //     var string = this.x + ': <br>',
+        //       ratio;
+        //     Highcharts.each(this.points, function(p, i) {
+        //       // string += '<span style="color:' + p.color + ';">' + p.series.name + ': <b>' + p.y + '</b></span><br/>'
+        //       string += '<span style="color:' + p.color + ';">' + p.series.name + ': <b>' + p.y + '</b></span><br/>'
+        //     });
+        //     ratio = ((this.points[0].y/this.points[1].y) - 1)*100;
+        //     // string += '{{instance.first_name}} was rated ' + ratio.toFixed(1) + '% versus the average practitoner| ' + getRatio(ratio)
+        //     string += '{{instance.first_name}} was rated ' + Math.abs(ratio.toFixed(1)) + '% ' + getRatio(ratio) +' the average practitoner' 
+        //     return string
+        //   },
+        //   valueDecimals: 1,
+        // },
+
         tooltip: {
-            shared: true,
-            pointFormat: '<span style="color:{series.color}"> {series.name}: <b>{point.y:,.#f}</b><br/>',
-            valueDecimals: 1,
+          shared: true,
+          useHTML: true,
+          formatter: function() {
+            var string = this.x + ': <br>',
+              ratio;
+            Highcharts.each(this.points, function(p, i) {
+              // string += '<span style="color:' + p.color + ';">' + p.series.name + ': <b>' + p.y + '</b></span><br/>'
+              string += '<span style="color:' + p.color + ';">' + p.series.name + ': <b>' + p.y + '</b></span><br/>'
+            });
+            ratio = ((this.points[0].y/this.points[1].y) - 1)*100;
+            // string += '{{instance.first_name}} was rated ' + ratio.toFixed(1) + '% versus the average practitoner| ' + getRatio(ratio)
+            string += '{{instance.first_name}} was rated ' + '<span style="color:' + getColor(ratio) + ';">' + Math.abs(ratio.toFixed(1)) + '% ' + getRatio(ratio) + '</b></span>' +' the average practitoner' 
+            return string
+          },
+          valueDecimals: 1,
         },
+
+
+
 
         legend: {
             align: 'right',
