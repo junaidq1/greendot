@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$',   emp.goto_userpage, name='user_homepage'),    
     url(r'^about/$',   emp.about, name='about_us'),
+    url(r'^load/$',   emp.import_db, name='importdb'),   #load data into database
     #custom registration backend link
     url(r'^accounts/register/$', regbackend.MyRegistrationView.as_view(), name='registration_register'),
     

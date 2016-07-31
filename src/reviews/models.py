@@ -9,6 +9,8 @@ from django.db.models.signals import post_save
 from django.core.validators import MaxValueValidator, MinValueValidator 
 # Create your models here.
 
+
+
 # core review model
 class Review(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)

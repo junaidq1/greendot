@@ -14,6 +14,26 @@ from registration.backends.default.views import RegistrationView
 # Create your views here.
 
 
+#import data into employee user model
+def import_db(request):
+
+    f = open('/Users/Junaid/desktop/greendotp/employees.csv', 'r') 
+
+    for line in f:
+        line =  line.split(',')
+        tmp = Employee.objects.create()
+        tmp.first_name = line[0]
+        tmp.last_name = line[1]
+        tmp.email = line[2]
+        tmp.level = line[3]
+        tmp.service_area = line[4]
+        tmp.service_line = line[5]
+        tmp.office = line[6]
+        tmp.save()
+    f.close()
+
+
+
 def go_home(request):	
 	return render(request, "home.html", {})
 
