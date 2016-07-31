@@ -15,8 +15,9 @@ class Review(models.Model):
 	employee = models.ForeignKey("Employee") #in quotes because model defined later
 	length_working = models.PositiveIntegerField(verbose_name="how long have you worked with this person? (months)?")
 	ques1 = models.PositiveIntegerField(verbose_name="How much did you enjoy working with this person (1-5)? (5 = most)?", validators=[MinValueValidator(1), MaxValueValidator(5)])
-	ques2 = models.PositiveIntegerField(verbose_name="How much did you learn from this individual while working with them (1-5)? (5 = most)", validators=[MinValueValidator(1), MaxValueValidator(5)])
-	ques3 = models.PositiveIntegerField(verbose_name="How competent is this person in their domain of expertise (1-5)? (5 = most)", validators=[MinValueValidator(1), MaxValueValidator(5)])
+	ques2 = models.PositiveIntegerField(verbose_name="How competent is this person in their domain of expertise (1-5)? (5 = most)", validators=[MinValueValidator(1), MaxValueValidator(5)])
+	ques3 = models.PositiveIntegerField(verbose_name="How much did you learn from this individual while working with them (1-5)? (5 = most)", validators=[MinValueValidator(1), MaxValueValidator(5)])
+	
 	#upvotes = models.IntegerField(null=True, blank=True)
 	#downvotes = models.IntegerField(null=True, blank=True)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
@@ -44,9 +45,10 @@ class Review(models.Model):
 class Employee(models.Model):
 	first_name = models.CharField(max_length=120)
 	last_name = models.CharField(max_length=120)
-	email = models.CharField(max_length=120)
+	email = models.CharField(max_length=120, null=True)
 	level = models.CharField(max_length=120)
 	service_area = models.CharField(max_length=120)
+	service_line = models.CharField(max_length=120, null=True)
 	office = models.CharField(max_length=120)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
@@ -102,6 +104,8 @@ class UserStatus(models.Model):
 class UserLevel(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	level = models.CharField(max_length=15, null=False)
+	office = models.CharField(max_length=15, null=False)
+	service_area = models.CharField(max_length=15, null=False)
 	updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
 	def __string__(self):

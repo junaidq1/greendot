@@ -17,5 +17,7 @@ class MyRegistrationView(RegistrationView):
 	    user_profile = UserLevel()
 	    user_profile.user = new_user
 	    user_profile.level = form_class.cleaned_data['level']
+	    user_profile.office = form_class.cleaned_data['office']
+	    user_profile.office = form_class.cleaned_data['service_area']
 	    user_profile.save()
 	    return user_profile

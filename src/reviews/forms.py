@@ -11,20 +11,6 @@ from registration.forms import RegistrationFormUniqueEmail #this is to edit the 
 # 		"employee",
 # 		"work_again",
 # 		]
-
-#this form edits the registration redux form
-class UserLevelRegistrationForm(RegistrationFormUniqueEmail):
-	LEVEL_CHOICES = (
-		('PPD', 'PPD'),
-		('BA', 'BA'),
-		('C', 'C'),
-		('SC', 'SC'),
-		('M', 'M'),
-		('SM', 'SM'),
-		('Other', 'other'),
-	)
-	level =  forms.ChoiceField(choices=LEVEL_CHOICES, label="What is your level at the firm?")
-
 #actual review post form
 class ReviewForm2(forms.ModelForm):
 	class Meta:
@@ -37,6 +23,56 @@ class ReviewForm2(forms.ModelForm):
 		"work_again",
 		"content",
 		]
+
+#this form edits the registration redux form
+class UserLevelRegistrationForm(RegistrationFormUniqueEmail):
+	LEVEL_CHOICES = (
+		('PPD', 'PPD'),
+		('BA', 'BA'),
+		('C', 'C'),
+		('SC', 'SC'),
+		('M', 'M'),
+		('SM', 'SM'),
+		('Other', 'other'),
+	)
+	OFFICE_CHOICES = (
+		('Other', 'other'),
+		('Atlanta', 'Atlanta'),
+		('Austin', 'Austin'),
+		('Bengaluru', 'Bengaluru'),
+		('Boston', 'Boston'),
+		('Charlotte', 'Charlotte'),
+		('Chicago', 'Chicago'),	
+		('Cincinnati', 'Cincinnati'),
+		('Cleveland', 'Cleveland'),
+		('Dallas', 'Dallas'),
+		('Denver', 'Denver'),
+		('Detroit', 'Detroit'),
+		('Gurgaon', 'Gurgaon'),
+		('Houston', 'Houston'),
+		('Kansas City', 'Kansas City'),
+		('Los Angeles', 'Los Angeles'),
+		('McLean', 'McLean'),
+		('Miami', 'Miami'),
+		('Minneapolis', 'Minneapolis'),
+		('Mumbai', 'Mumbai'),
+		('New York City', 'New York City'),
+		('Orange County', 'Orange County'),
+		('Parsippany', 'Parsippany'),
+		('Philadelphia', 'Philadelphia'),
+		('Pittsburgh', 'Pittsburgh'),
+		('San Francisco', 'San Francisco'),
+		('Seattle', 'Seattle'),
+	)
+	ServiceArea_CHOICES = (
+		('S&O', 'S&O'),
+		('Tech', 'Tech'),
+		('Human Capital', 'Human Capital'),
+	)
+	level =  forms.ChoiceField(choices=LEVEL_CHOICES, label="What is your level at the firm?")
+	office =  forms.ChoiceField(choices=OFFICE_CHOICES, label="What office are you based out of?")
+	service_area =  forms.ChoiceField(choices=ServiceArea_CHOICES, label="What Service Area are you a part of?")
+
 
 # form to validate that person signing up knows the answer to the impact day question
 class ValidationForm(forms.Form):
@@ -55,8 +91,8 @@ class AccessIssuesForm(forms.Form):
 
 class ReportDataForm(forms.Form):
 	DataReportChoices = (
-	    ('1', 'Incorrect practitioner data'),
-	    ('2', 'Missing practitioner data'),
+	    ('Incorrect', 'Incorrect practitioner data'),
+	    ('Missing', 'Missing practitioner data'),
 	)
 	data_issue =  forms.ChoiceField(choices=DataReportChoices,
 		label="What kind of data issue would you like to report?")
@@ -65,7 +101,7 @@ class ReportDataForm(forms.Form):
 	service_area = forms.CharField(label="Service Area of practitoner", max_length=120)
 	level = forms.CharField(label="Level of practitoner", max_length=120)
 	office = forms.CharField(label="Office of practitoner", max_length=120)
-	message = forms.CharField(label="Describe data issue")
+	message = forms.CharField(label="Describe data issue", max_length=1500)
 
 
 

@@ -96,6 +96,22 @@
     }
 },
 {
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": {
+        "app_label": "reviews",
+        "model": "userlevel"
+    }
+},
+{
+    "model": "sessions.session",
+    "pk": "7227vbzrxe1242caycz49t6hava8xa8f",
+    "fields": {
+        "session_data": "ZDVmNTFmMWVlMzk3MGUzM2E1OTVlM2VmNGZmY2YwZGY2YjgzODdjYzp7Il9hdXRoX3VzZXJfaGFzaCI6Ijc2MjBjODlkY2I1YjhmMjg3Yzc3Y2JkNjBhOTkxZDI5NTE5M2Q2ODYiLCJfYXV0aF91c2VyX2JhY2tlbmQiOiJkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZCIsIl9hdXRoX3VzZXJfaWQiOiIxIn0=",
+        "expire_date": "2016-08-14T13:17:43.107Z"
+    }
+},
+{
     "model": "sites.site",
     "pk": 1,
     "fields": {
@@ -112,6 +128,7 @@
         "email": "donduck@del.com",
         "level": "PPD",
         "service_area": "S&O",
+        "service_line": "",
         "office": "Chicago",
         "timestamp": "2016-06-26T05:02:56.070Z"
     }
@@ -125,6 +142,7 @@
         "email": "daffy@del.com",
         "level": "M",
         "service_area": "Tech",
+        "service_line": "",
         "office": "Mclean",
         "timestamp": "2016-06-26T05:03:13.454Z"
     }
@@ -138,6 +156,7 @@
         "email": "fierna@del.com",
         "level": "SM",
         "service_area": "S&O",
+        "service_line": "",
         "office": "Mclean",
         "timestamp": "2016-06-26T05:04:03.673Z"
     }
@@ -151,6 +170,7 @@
         "email": "bern@peeps.com",
         "level": "SM",
         "service_area": "Hcap",
+        "service_line": "",
         "office": "houston",
         "timestamp": "2016-06-26T05:04:21.306Z"
     }
@@ -164,6 +184,7 @@
         "email": "houston",
         "level": "SM",
         "service_area": "S&O",
+        "service_line": "",
         "office": "Atlanta",
         "timestamp": "2016-06-26T05:04:37.399Z"
     }
@@ -177,6 +198,7 @@
         "email": "clapper@del.com",
         "level": "M",
         "service_area": "S&O",
+        "service_line": "",
         "office": "Atlanta",
         "timestamp": "2016-06-26T05:05:00.965Z"
     }
@@ -190,6 +212,7 @@
         "email": "donb@del.com",
         "level": "SM",
         "service_area": "S&O",
+        "service_line": "",
         "office": "san fran",
         "timestamp": "2016-06-26T05:11:35.380Z"
     }
@@ -203,6 +226,7 @@
         "email": "puneet@del.com",
         "level": "PPD",
         "service_area": "S&O",
+        "service_line": "",
         "office": "Atlanta",
         "timestamp": "2016-06-26T05:11:47.977Z"
     }
@@ -216,6 +240,7 @@
         "email": "adsf@deloitte.com",
         "level": "M",
         "service_area": "Tech",
+        "service_line": "",
         "office": "Chicago",
         "timestamp": "2016-07-02T18:14:00.031Z"
     }
@@ -545,11 +570,38 @@
     }
 },
 {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+        "name": "Can add user level",
+        "content_type": 13,
+        "codename": "add_userlevel"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+        "name": "Can change user level",
+        "content_type": 13,
+        "codename": "change_userlevel"
+    }
+},
+{
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+        "name": "Can delete user level",
+        "content_type": 13,
+        "codename": "delete_userlevel"
+    }
+},
+{
     "model": "auth.user",
     "pk": 1,
     "fields": {
         "password": "pbkdf2_sha256$24000$N8IAWnO12zEy$EEuIZFLUAyS8mqGA7SLq8MZxOLnOIr0Hc5DN6PSgbIk=",
-        "last_login": "2016-07-11T00:19:22.101Z",
+        "last_login": "2016-07-31T13:17:43.104Z",
         "is_superuser": true,
         "username": "junaid",
         "first_name": "",
@@ -726,24 +778,6 @@
 },
 {
     "model": "auth.user",
-    "pk": 11,
-    "fields": {
-        "password": "pbkdf2_sha256$24000$tfpEQQn1PvJz$ZeGbKubC5Tk+J59SysflkD1LSAEoOtzjxcYFwad7q3g=",
-        "last_login": "2016-07-10T21:39:20.392Z",
-        "is_superuser": false,
-        "username": "dejected",
-        "first_name": "",
-        "last_name": "",
-        "email": "gtg592v@gmail.com",
-        "is_staff": false,
-        "is_active": true,
-        "date_joined": "2016-07-09T14:25:59.828Z",
-        "groups": [],
-        "user_permissions": []
-    }
-},
-{
-    "model": "auth.user",
     "pk": 12,
     "fields": {
         "password": "pbkdf2_sha256$24000$Hh5m4h2tweXP$dNs72DCeLzOynQgUrT+dPeEYBVfIEt6JOz7ZnKbDi0M=",
@@ -756,6 +790,60 @@
         "is_staff": false,
         "is_active": false,
         "date_joined": "2016-07-11T11:52:57.713Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 15,
+    "fields": {
+        "password": "pbkdf2_sha256$24000$yPoNamRdlyfd$eoKXZ57OMau16J3KkVFSwdyShMYPQickR0qhnqivTEw=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "zxcv",
+        "first_name": "",
+        "last_name": "",
+        "email": "zxcv@gmail.com",
+        "is_staff": false,
+        "is_active": false,
+        "date_joined": "2016-07-12T02:53:25.980Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 21,
+    "fields": {
+        "password": "pbkdf2_sha256$24000$a7Jl5sjU8L1Y$uTQdAzB0+nWJJln6mJFV2rUX1a6Tp+O1bvWgDiitFYg=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "nowman",
+        "first_name": "",
+        "last_name": "",
+        "email": "zxcvb@gmail.com",
+        "is_staff": false,
+        "is_active": false,
+        "date_joined": "2016-07-12T03:05:31.533Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 22,
+    "fields": {
+        "password": "pbkdf2_sha256$24000$6UhvunUY6vwY$4Hsay/ikp/xkPunwtaKaCpDtjSZLYbCnllySdC7+TDs=",
+        "last_login": "2016-07-19T02:41:51.884Z",
+        "is_superuser": false,
+        "username": "jimbo",
+        "first_name": "",
+        "last_name": "",
+        "email": "gtg592v@gmail.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2016-07-19T02:40:56.538Z",
         "groups": [],
         "user_permissions": []
     }
@@ -959,15 +1047,15 @@
     "model": "reviews.review",
     "pk": 14,
     "fields": {
-        "user": 11,
-        "employee": 2,
-        "length_working": 12,
-        "ques1": 4,
+        "user": 22,
+        "employee": 1,
+        "length_working": 4,
+        "ques1": 3,
         "ques2": 3,
-        "ques3": 2,
-        "timestamp": "2016-07-09T14:29:54.450Z",
-        "work_again": "Y",
-        "content": "daffy was an okay consultant to work with. He was funny and interesting but I didn't learn much from him"
+        "ques3": 3,
+        "timestamp": "2016-07-19T02:46:54.064Z",
+        "work_again": "N",
+        "content": "Man, avoid the duck on all counts. This is not someone you want to work with!"
     }
 },
 {
@@ -1175,6 +1263,42 @@
     }
 },
 {
+    "model": "reviews.vote",
+    "pk": 25,
+    "fields": {
+        "review": 4,
+        "employee": 7,
+        "user": 1,
+        "upvotes": true,
+        "downvotes": null,
+        "v_timestamp": "2016-07-14T04:03:29.730Z"
+    }
+},
+{
+    "model": "reviews.vote",
+    "pk": 27,
+    "fields": {
+        "review": 1,
+        "employee": 1,
+        "user": 22,
+        "upvotes": true,
+        "downvotes": null,
+        "v_timestamp": "2016-07-19T02:54:30.558Z"
+    }
+},
+{
+    "model": "reviews.vote",
+    "pk": 28,
+    "fields": {
+        "review": 10,
+        "employee": 3,
+        "user": 22,
+        "upvotes": true,
+        "downvotes": null,
+        "v_timestamp": "2016-07-19T02:56:01.866Z"
+    }
+},
+{
     "model": "reviews.userstatus",
     "pk": 1,
     "fields": {
@@ -1266,20 +1390,49 @@
 },
 {
     "model": "reviews.userstatus",
-    "pk": 11,
-    "fields": {
-        "user": 11,
-        "is_contributor": true,
-        "updated": "2016-07-09T14:25:59.880Z"
-    }
-},
-{
-    "model": "reviews.userstatus",
     "pk": 12,
     "fields": {
         "user": 12,
         "is_contributor": false,
         "updated": "2016-07-11T11:52:57.763Z"
+    }
+},
+{
+    "model": "reviews.userstatus",
+    "pk": 15,
+    "fields": {
+        "user": 15,
+        "is_contributor": false,
+        "updated": "2016-07-12T02:53:26.025Z"
+    }
+},
+{
+    "model": "reviews.userstatus",
+    "pk": 21,
+    "fields": {
+        "user": 21,
+        "is_contributor": false,
+        "updated": "2016-07-12T03:05:31.577Z"
+    }
+},
+{
+    "model": "reviews.userstatus",
+    "pk": 22,
+    "fields": {
+        "user": 22,
+        "is_contributor": true,
+        "updated": "2016-07-19T02:40:56.585Z"
+    }
+},
+{
+    "model": "reviews.userlevel",
+    "pk": 1,
+    "fields": {
+        "user": 22,
+        "level": "BA",
+        "office": "S&O",
+        "service_area": "",
+        "updated": "2016-07-19T02:40:59.581Z"
     }
 },
 {
@@ -1293,20 +1446,38 @@
 },
 {
     "model": "registration.registrationprofile",
-    "pk": 2,
-    "fields": {
-        "user": 11,
-        "activation_key": "d6ffaefd19df4c2c98dbf5bdec3ac34b0a9a8d25",
-        "activated": true
-    }
-},
-{
-    "model": "registration.registrationprofile",
     "pk": 3,
     "fields": {
         "user": 12,
         "activation_key": "736162bc8beffa5bc4327ce31f48683a3d08e855",
         "activated": false
+    }
+},
+{
+    "model": "registration.registrationprofile",
+    "pk": 6,
+    "fields": {
+        "user": 15,
+        "activation_key": "3ceba2de68b6b929f8baddb5e94ad9c53c66d1b9",
+        "activated": false
+    }
+},
+{
+    "model": "registration.registrationprofile",
+    "pk": 12,
+    "fields": {
+        "user": 21,
+        "activation_key": "fcc0761d74d1aad2db9d52d75ad908b64ea00e59",
+        "activated": false
+    }
+},
+{
+    "model": "registration.registrationprofile",
+    "pk": 13,
+    "fields": {
+        "user": 22,
+        "activation_key": "9377a5bb0a4da9d5a97a8be1017a8b9aa15388a5",
+        "activated": true
     }
 },
 {
@@ -2230,6 +2401,136 @@
         "object_repr": "greendotpeers.com",
         "action_flag": 2,
         "change_message": "Changed domain and name."
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 72,
+    "fields": {
+        "action_time": "2016-07-12T01:45:41.754Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "11",
+        "object_repr": "dejected",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 73,
+    "fields": {
+        "action_time": "2016-07-12T01:45:48.638Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "13",
+        "object_repr": "depp",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 74,
+    "fields": {
+        "action_time": "2016-07-12T01:45:54.693Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "14",
+        "object_repr": "deppy",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 75,
+    "fields": {
+        "action_time": "2016-07-12T02:54:41.706Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "16",
+        "object_repr": "donny",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 76,
+    "fields": {
+        "action_time": "2016-07-12T02:58:47.841Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "18",
+        "object_repr": "dildo",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 77,
+    "fields": {
+        "action_time": "2016-07-12T02:58:52.856Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "17",
+        "object_repr": "dory",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 78,
+    "fields": {
+        "action_time": "2016-07-12T03:01:23.753Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "19",
+        "object_repr": "dildi",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 79,
+    "fields": {
+        "action_time": "2016-07-12T03:02:27.574Z",
+        "user": 1,
+        "content_type": 5,
+        "object_id": "20",
+        "object_repr": "dodo",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 80,
+    "fields": {
+        "action_time": "2016-07-14T22:40:27.826Z",
+        "user": 1,
+        "content_type": 9,
+        "object_id": "15",
+        "object_repr": "Working with Amy was Brutal but I learned a ton from working with her - truly an exceptional talent to work with and learn from Working with Amy was Brutal but I learned a ton from working with her - ",
+        "action_flag": 3,
+        "change_message": ""
+    }
+},
+{
+    "model": "admin.logentry",
+    "pk": 81,
+    "fields": {
+        "action_time": "2016-07-19T02:33:29.399Z",
+        "user": 1,
+        "content_type": 13,
+        "object_id": "4",
+        "object_repr": "UserLevel object",
+        "action_flag": 3,
+        "change_message": ""
     }
 }
 ]

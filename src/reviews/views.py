@@ -167,7 +167,7 @@ def employee_detail(request, pk=None):
 	work_again_yes =work_again_yes['work_again__count']
 	work_again_no = rev_list.filter(work_again__iexact="N").aggregate(Count('work_again'))	
 	work_again_no =work_again_no['work_again__count']
-	rand_num = 23 / float(100) #test
+	#rand_num = 23 / float(100) #test
 	#vote_list = instance.vote_set.all()
 	context = {
 		"review_list": rev_list,
@@ -180,9 +180,9 @@ def employee_detail(request, pk=None):
 		"ques3_employee_avg": ques3_employee_avg,
 		"work_again_yes": work_again_yes,
 		"work_again_no": work_again_no,
-		"rand_num": rand_num,
+		#"rand_num": rand_num,
 	}
-	print rand_num
+	#print rand_num
 	return render(request, "employee_detail.html", context)
 
 

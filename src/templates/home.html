@@ -56,9 +56,28 @@
       </div>
 
       <hr>
+      
+      <div class="row">
+        <div class="col-md-4 col-sm-offset-9">
+        
+        <!-- {{request.build_absolute_uri}} -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}">
+        Facebook | 
+        </a>
+        <a href="https://twitter.com/home?status=%20{{request.build_absolute_uri}}">
+        Twitter |
+        </a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{request.build_absolute_uri}}&title=greendotpeers.com&source={{request.build_absolute_uri}}">
+        Linkedin
+        </a>
+
+        </div>
+      </div>
+
       <footer>
-        <p>&copy; 2016 Company, Inc.</p>
+        <p>&copy; 2016 Inc.</p>
       </footer>
+
     </div> <!-- /container -->
     
     {% endblock %}
