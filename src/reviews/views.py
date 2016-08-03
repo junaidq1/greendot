@@ -11,28 +11,26 @@ from django.db.models.signals import post_save
 from django.conf import settings
 from django.contrib import messages
 from registration.backends.default.views import RegistrationView
+
 # Create your views here.
 
 
-#import data into employee user model
-def import_db(request):
-
-    f = open('/Users/Junaid/desktop/greendotp/employees.csv', 'r') 
-
-    for line in f:
-        line =  line.split(',')
-        tmp = Employee.objects.create()
-        tmp.first_name = line[0]
-        tmp.last_name = line[1]
-        tmp.email = line[2]
-        tmp.level = line[3]
-        tmp.service_area = line[4]
-        tmp.service_line = line[5]
-        tmp.office = line[6]
-        tmp.save()
-    f.close()
-
-
+#import data into employee user model - Keep commented
+# def import_db(request):
+# 	f = open('/Users/Junaid/desktop/greendotp/employees.csv', 'r') 
+# 	for line in f:
+# 		line =  line.split(',')		
+# 		tmp = Employee.objects.create()
+# 		tmp.first_name = line[0]
+# 		tmp.last_name = line[1]
+# 		tmp.email = line[2]
+# 		tmp.level = line[3]
+# 		tmp.service_area = line[4]
+# 		tmp.service_line = line[5]
+# 		tmp.office = line[6]
+# 		tmp.save()
+# 	f.close()
+# 	return HttpResponse("Completed", content_type="text/plain")
 
 def go_home(request):	
 	return render(request, "home.html", {})

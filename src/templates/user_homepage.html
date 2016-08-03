@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-	User homepage: {{username}}
+	{{username}}'s homepage: 
 {% endblock %}
 
 {% block content %}
@@ -65,12 +65,12 @@
 
 		 		{% for obj in recent_reviews %}
 					<ul>
-					#{{ forloop.counter }} -
+					{{ forloop.counter }}. 
 					<a href='{% url "emp_details" pk=obj.employee.pk %}'>
-					{{obj.employee}} -
-					{{obj.employee.service_area}} -
+					{{obj.employee.first_name}} {{obj.employee.last_name}} |
+					{{obj.employee.service_area}} |
 					</a>
-					Posted By: {{obj.user}} -
+					Posted By: {{obj.user}} |
 					{{obj.timestamp|timesince}} ago
 					</ul>
 				{% endfor %}
@@ -85,10 +85,10 @@
 
 		 		{% for obj2 in recent_voted_reviews %}
 					<ul>
-					#{{ forloop.counter }} -
+					{{ forloop.counter }}. 
 					<a href='{% url "emp_details" pk=obj2.employee.pk %}'>
-					{{obj2.employee}} -
-					{{obj2.employee.service_area}} -
+					{{obj2.employee.first_name}} {{obj2.employee.last_name}}  |
+					{{obj2.employee.service_area}} |
 					{{obj2.review.content|truncatechars:50}}...
 					</a>
 				

@@ -14,9 +14,9 @@ class ReviewModelAdmin(admin.ModelAdmin):
 		model = Review
 
 class EmployeeModelAdmin(admin.ModelAdmin):
-	list_display = ['pk', 'full_name', 'first_name', 'last_name', 'level', 'office', 'service_area', 'timestamp']
+	list_display = ['pk', 'full_name', 'first_name', 'last_name', 'level', 'office', 'service_area','service_line', 'timestamp']
 	list_display_links = ['first_name', 'last_name', 'level', 'office','service_area', 'timestamp']
-	list_filter = ['first_name', 'last_name', 'level', 'office', 'service_area','timestamp']
+	list_filter = [	'level', 'office', 'service_area','timestamp']
 	#list_editable
 	search_fields = ['first_name', 'last_name', 'level', 'office','service_area', 'timestamp']
 	
