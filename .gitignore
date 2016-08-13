@@ -4,6 +4,20 @@ bin/
 include/
 idontwant.py
 
+old_settings.py
+settings.py
+base.py
+local.py
+production.py
+
+practitioners 2 - master v8-13-16.xlsx
+employees.csv
+db.sqlite3_backup_preload
+db.sqlite3_backup_with_actual_employee_database
+httpd.conf
+db.sqlite3
+src/greendotp/settings/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

@@ -31,7 +31,7 @@
         },
 
         title: {
-            text: 'Ratings for {{instance.first_name}}',
+            text: 'Ratings for {{instance.first_name}} (Based on {{rev_count}} reviews)',
             x: -80
         },
 
@@ -50,7 +50,7 @@
         },
 
         xAxis: {
-            categories: ['Enjoyed working with them (1-5)', 'Had domain competency (1-5)', 'Learned from them (1-5)' ],
+            categories: ['Professional niceness (1-5)', 'Had domain competency (1-5)', 'Learned from them (1-5)' ],
             tickmarkPlacement: 'on',
             lineWidth: 0
         },
@@ -102,7 +102,7 @@
             });
             ratio = ((this.points[0].y/this.points[1].y) - 1)*100;
             // string += '{{instance.first_name}} was rated ' + ratio.toFixed(1) + '% versus the average practitoner| ' + getRatio(ratio)
-            string += '{{instance.first_name}} was rated ' + '<span style="color:' + getColor(ratio) + ';">' + Math.abs(ratio.toFixed(1)) + '% ' + getRatio(ratio) + '</b></span>' +' the average practitoner' 
+            string += '{{instance.first_name}} was rated ' + '<span style="color:' + getColor(ratio) + ';">' + Math.abs(ratio.toFixed(0)) + '% ' + getRatio(ratio) + '</b></span>' +' the average practitoner' 
             return string
           },
           valueDecimals: 1,

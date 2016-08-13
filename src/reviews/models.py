@@ -10,15 +10,15 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 
 
-
-# core review model
+ 
+# core review model 
 class Review(models.Model):
 	user = models.ForeignKey(settings.AUTH_USER_MODEL)
 	employee = models.ForeignKey("Employee") #in quotes because model defined later
 	length_working = models.PositiveIntegerField(verbose_name="how long have you worked with this person? (months)?")
-	ques1 = models.PositiveIntegerField(verbose_name="How much did you enjoy working with this person (1-5)? (5 = most)?", validators=[MinValueValidator(1), MaxValueValidator(5)])
+	ques1 = models.PositiveIntegerField(verbose_name="How nice is this person in their professional interactions (1-5)? (5 = most)?", validators=[MinValueValidator(1), MaxValueValidator(5)])
 	ques2 = models.PositiveIntegerField(verbose_name="How competent is this person in their domain of expertise (1-5)? (5 = most)", validators=[MinValueValidator(1), MaxValueValidator(5)])
-	ques3 = models.PositiveIntegerField(verbose_name="How much did you learn from this individual while working with them (1-5)? (5 = most)", validators=[MinValueValidator(1), MaxValueValidator(5)])
+	ques3 = models.PositiveIntegerField(verbose_name="How much did you learn from this person while working with them (1-5)? (5 = most)", validators=[MinValueValidator(1), MaxValueValidator(5)])
 	
 	#upvotes = models.IntegerField(null=True, blank=True)
 	#downvotes = models.IntegerField(null=True, blank=True)
@@ -36,6 +36,9 @@ class Review(models.Model):
 	def __unicode__(self):
 		return self.content
 
+	def __string__(self):
+		return self.content
+
 	def get_absolute_url(self):
 		return reverse("r_detail", kwargs={"pk": self.pk} )
 		#return "/reviews/%s/" %(self.pk)
@@ -45,13 +48,15 @@ class Review(models.Model):
 
 # employee model (aka practitioner who will be rated)
 class Employee(models.Model):
+	tracking_id = models.IntegerField()
 	first_name = models.CharField(max_length=120)
 	last_name = models.CharField(max_length=120)
-	email = models.CharField(max_length=120, null=True)
+	email = models.CharField(max_length=120, null=True, blank=True)
 	level = models.CharField(max_length=120)
 	service_area = models.CharField(max_length=120)
-	service_line = models.CharField(max_length=120, null=True)
+	service_line = models.CharField(max_length=120, null=True, blank=True)
 	office = models.CharField(max_length=120)
+	is_live = models.BooleanField(default=True)
 	timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
 
 	@property
@@ -59,6 +64,9 @@ class Employee(models.Model):
 		return ''.join([self.last_name, ', ', self.first_name])
 
 	def __unicode__(self):
+		return self.full_name
+
+	def __string__(self):
 		return self.full_name
 
 class VoteManager(models.Manager):
@@ -97,6 +105,9 @@ class UserStatus(models.Model):
 	def get_contr_status(self):
 	    # The user is identified by their email address
 	    return self.is_contributor
+
+	# def __unicode__(self):
+	# 	return self.is_contributor
 
 	def __string__(self):
 		return self.is_contributor

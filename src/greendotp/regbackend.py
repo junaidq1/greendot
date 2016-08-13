@@ -12,12 +12,11 @@ class MyRegistrationView(RegistrationView):
 	form_class = UserLevelRegistrationForm
 
 	def register(self, form_class):
-	    print 'test'
 	    new_user = super(MyRegistrationView, self).register(form_class)
 	    user_profile = UserLevel()
 	    user_profile.user = new_user
 	    user_profile.level = form_class.cleaned_data['level']
 	    user_profile.office = form_class.cleaned_data['office']
-	    user_profile.office = form_class.cleaned_data['service_area']
+	    user_profile.service_area = form_class.cleaned_data['service_area']
 	    user_profile.save()
 	    return user_profile

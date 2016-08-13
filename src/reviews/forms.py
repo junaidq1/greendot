@@ -11,7 +11,7 @@ from registration.forms import RegistrationFormUniqueEmail #this is to edit the 
 # 		"employee",
 # 		"work_again",
 # 		]
-#actual review post form
+#actual review post form 
 class ReviewForm2(forms.ModelForm):
 	class Meta:
 		model = Review

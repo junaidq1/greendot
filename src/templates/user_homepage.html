@@ -23,12 +23,13 @@
 </div>
 {% endif %}
 
+
 <div class='container'>
 <h2> Welcome {{username}} </h2>
 <hr/>
  	<div class='row'>
 		<div class='col-sm-3 col-sm-offset-1'> 
-
+ 
 			<br>
 			<br>
 	 		<h4> What would you like to do:</h4>
@@ -58,7 +59,7 @@
 		 	<br>
 			 	<div class="cent-text"> 
 			 		<u> 
-			 		<h4>Practitioners Recently Reviewed</h4> 
+			 		<h4><a href='{% url "reviews_longlist" %}'>Practitioners Recently Reviewed</a></h4> 
 			 		</u>
 			 	</div>
 		 		<br>

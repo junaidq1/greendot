@@ -1,5 +1,6 @@
 from django.contrib import admin
-
+from django import forms
+#from importcsvadmin.admin import ImportCSVModelAdmin
 # Register your models here.
 
 from .models import Review, Employee, Vote, UserStatus, UserLevel
@@ -13,12 +14,13 @@ class ReviewModelAdmin(admin.ModelAdmin):
 	class Meta:
 		model = Review
 
+
 class EmployeeModelAdmin(admin.ModelAdmin):
-	list_display = ['pk', 'full_name', 'first_name', 'last_name', 'level', 'office', 'service_area','service_line', 'timestamp']
-	list_display_links = ['first_name', 'last_name', 'level', 'office','service_area', 'timestamp']
-	list_filter = [	'level', 'office', 'service_area','timestamp']
+	list_display = ['pk', 'tracking_id', 'full_name', 'first_name', 'last_name', 'level', 'office', 'is_live','service_area','service_line', 'timestamp']
+	list_display_links = ['tracking_id','first_name', 'last_name', 'level', 'office','service_area', 'timestamp']
+	list_filter = [	'level', 'office', 'service_area','is_live','timestamp']
 	#list_editable
-	search_fields = ['first_name', 'last_name', 'level', 'office','service_area', 'timestamp']
+	search_fields = ['first_name', 'last_name', 'level', 'office','service_area', 'timestamp', 'is_live']
 	
 	class Meta:
 		model = Employee

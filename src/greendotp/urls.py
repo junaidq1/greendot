@@ -28,16 +28,18 @@ from reviews import views as emp
 #url(r'^myaccount/$', emp.goto_userpage, name='user_homepage'),
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^siteadmin/', admin.site.urls),
     url(r'^$',   emp.goto_userpage, name='user_homepage'),    
     url(r'^about/$',   emp.about, name='about_us'),
-    #url(r'^load/$',   emp.import_db, name='importdb'),   #load data into database - keep off
+    # url(r'^load/$',   emp.import_db, name='importdb'),   #load data into database - keep off
     #custom registration backend link
     url(r'^accounts/register/$', regbackend.MyRegistrationView.as_view(), name='registration_register'),
     
     url(r'^create0/$', emp.verify_question, name='ver_question'),   
     url(r'^myaccount/search$', emp.search_practitioner_reviews, name='search_practitioners'),
     url(r'^myaccount/myreviews/(?P<pk>\d+)/$', emp.view_past_user_reviews, name='past_user_reviews'),
+    url(r'^myaccount/reviewedpractitioners/$', emp.list_of_reviewed_employees, name='reviews_longlist'),
+    
     #
     url(r'^reviews/', include("reviews.urls")),
     url(r'^employees/$', emp.employee_list, name='list_of_all_employees'),
@@ -49,7 +51,6 @@ urlpatterns = [
     url(r'^provide_feedback/$',   emp.provide_feedback, name='provide_feedback'),
     url(r'^access_issues/$',   emp.access_issues, name='access_issues'),
     url(r'^report_data_issues/$',   emp.report_data_issues, name='report_data_issues'),
-    
 ]
 
 if settings.DEBUG:

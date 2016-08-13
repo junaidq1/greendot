@@ -11,26 +11,27 @@ from django.db.models.signals import post_save
 from django.conf import settings
 from django.contrib import messages
 from registration.backends.default.views import RegistrationView
-
+import csv
 # Create your views here.
 
 
-#import data into employee user model - Keep commented
+ 
 # def import_db(request):
-# 	f = open('/Users/Junaid/desktop/greendotp/employees.csv', 'r') 
-# 	for line in f:
-# 		line =  line.split(',')		
-# 		tmp = Employee.objects.create()
-# 		tmp.first_name = line[0]
-# 		tmp.last_name = line[1]
-# 		tmp.email = line[2]
-# 		tmp.level = line[3]
-# 		tmp.service_area = line[4]
-# 		tmp.service_line = line[5]
-# 		tmp.office = line[6]
-# 		tmp.save()
-# 	f.close()
+# 	#csv_filepathname=
+# 	dataReader = csv.reader(open('/home/greendot/webapps/greendotpeers/employees2.csv'), delimiter=',', quotechar='"')
+# 	for row in dataReader:
+# 		emp = Employee()
+# 		emp.first_name = row[0]
+# 		emp.last_name = row[1]
+# 		emp.email = row[2]
+# 		emp.level = row[3]
+# 		emp.service_area = row[4]
+# 		emp.service_line = row[5]
+# 		emp.office = row[6]
+# 		emp.save()
 # 	return HttpResponse("Completed", content_type="text/plain")
+
+
 
 def go_home(request):	
 	return render(request, "home.html", {})
@@ -82,9 +83,9 @@ def verify_question(request):
 	# }
 	# return render(request, "post_form.html", context)
 
-
+@login_required
 def review_create1(request):
-	queryset_list = Employee.objects.all()
+	queryset_list = Employee.objects.filter(is_live=True)
 	query = request.GET.get("q1")
 	if query:  #add an or here
 		queryset_list = queryset_list.filter(
@@ -98,6 +99,7 @@ def review_create1(request):
 	return render(request, "create_review1.html", context)
 		#return HttpResponseRedirect('/reviews/create2/')
 
+@login_required
 def review_create2(request, pk=None):
 	#form = ReviewForm(request.POST or None)
 	#instance = get_object_or_404(Review, pk=pk) #this is what was working_1
@@ -109,7 +111,6 @@ def review_create2(request, pk=None):
 			instance = form.save(commit=False)
 			instance.employee = Employee.objects.get(pk=pk)
 			instance.user = request.user
-			#instance.user.userstatus.is_contributor = True 	#added this to trigger true contributor status
 			instance.save()
 			return HttpResponseRedirect('/reviews/create3/')
 		except:
@@ -124,11 +125,12 @@ def review_create2(request, pk=None):
 def rev_error(request):
 	return render(request, "cant_review_twice.html", {})
 
+@login_required
 def review_create3(request):
 	return render(request, "create_review3.html", {})
 
 
-
+@login_required
 def review_detail(request, pk=None):
 	instance = get_object_or_404(Review, pk=pk)
 	context = {
@@ -164,11 +166,12 @@ def employee_list(request):
 		context = {"title": "Unauthenticated List"}
 	return render(request, "employee_list.html", context) 
 
+@login_required
 def employee_detail(request, pk=None):
 	instance = get_object_or_404(Employee, pk=pk)
 	rev_list = instance.review_set.all() #.order_by("-count('upvotes')")
-	#rev_list = instance.review_set.all().annotate(num_votes=Count('upvotes')).order_by('-num_votes')
 	rev_list = rev_list.annotate(num_votes=Count('votereview')).order_by('-num_votes')
+	rev_count = instance.review_set.count()
 	ques1_overall_avg = Review.objects.aggregate(Avg('ques1'))
 	ques1_overall_avg = ques1_overall_avg['ques1__avg']
 	ques2_overall_avg = Review.objects.aggregate(Avg('ques2'))
@@ -185,10 +188,10 @@ def employee_detail(request, pk=None):
 	work_again_yes =work_again_yes['work_again__count']
 	work_again_no = rev_list.filter(work_again__iexact="N").aggregate(Count('work_again'))	
 	work_again_no =work_again_no['work_again__count']
-	#rand_num = 23 / float(100) #test
 	#vote_list = instance.vote_set.all()
 	context = {
 		"review_list": rev_list,
+		"rev_count": rev_count,
 		"instance": instance,
 		"ques1_overall_avg": ques1_overall_avg,
 		"ques2_overall_avg": ques2_overall_avg,
@@ -204,6 +207,7 @@ def employee_detail(request, pk=None):
 	return render(request, "employee_detail.html", context)
 
 
+@login_required
 def vote_for_review(request, pk=None, pk2=None):
 	emp_instance = get_object_or_404(Employee, pk=pk)
 	rev_instance = get_object_or_404(Review, pk=pk2)
@@ -231,9 +235,10 @@ def vote_error(request):
 # based on users authentication status and contributor status
 def goto_userpage(request):
 	if request.user.is_authenticated() and request.user.userstatus.is_contributor:
-		recent_reviews = Review.objects.all().order_by('-pk')[:5]
+		#recent_reviews = Review.objects.all().order_by('-pk')[:5]
+		recent_reviews = Review.objects.filter(employee__is_live=True).order_by('-pk')[:5]
 		#update recent_voted_reviews after model refresh
-		recent_voted_reviews = Vote.objects.all().order_by('-pk')[:5]
+		recent_voted_reviews = Vote.objects.filter(employee__is_live=True).order_by('-pk')[:5]
 		context = {
 		"username": request.user,  #update this
 		"recent_reviews": recent_reviews,
@@ -244,12 +249,12 @@ def goto_userpage(request):
 		if request.user.is_authenticated() and request.user.userstatus.is_contributor == False:
 			return render(request, "become_a_contributor.html", {}) 
 		else:
-			#return render(request, "please_signup.html", {})
 			return render(request, "home.html", {})  
 
-
+@login_required
 def search_practitioner_reviews(request):
-	queryset_list = Employee.objects.all()
+	#queryset_list = Employee.objects.all()   #add active filter here
+	queryset_list = Employee.objects.filter(is_live=True)
 	query = request.GET.get("q1")
 	if query:  #add an or here
 		queryset_list = queryset_list.filter(
@@ -263,20 +268,39 @@ def search_practitioner_reviews(request):
 	return render(request, "search_practitioners1.html", context)
 		#return HttpResponseRedirect('/reviews/create2/')
 
-
+@login_required
 def view_past_user_reviews(request, pk=None):
 	user_review_queryset = Review.objects.filter(user=request.user).order_by('-timestamp')
 	#review_votes = user_review_queryset.annotate(num_votes=Count('votereview'))
 	user_review_queryset = user_review_queryset.annotate(num_votes=Count('votereview'))
 	
-	#ques1_overall_avg = Review.objects.aggregate(Avg('ques1'))
-	#print aa
 	context = {
 	"username": request.user,  
 	"user_review_queryset": user_review_queryset,
 	#"review_votes": review_votes,
 	}
 	return render(request, "all_reviews_by_user.html", context)
+
+
+#new - long list of practitioners recently reviewed
+@login_required
+def list_of_reviewed_employees(request):
+	if request.user.is_authenticated() and request.user.userstatus.is_contributor:
+		recent_reviews1 = Review.objects.filter(employee__is_live=True).order_by('-pk')[:15]
+		recent_reviews2 = Review.objects.filter(employee__is_live=True).order_by('-pk')[16:31]
+		#update recent_voted_reviews after model refresh
+		context = {
+		"username": request.user,  #update this
+		"recent_reviews1": recent_reviews1,
+		"recent_reviews2": recent_reviews2,
+		} 
+		return render(request, "recent_reviews_longlist.html", context)
+	else:
+		if request.user.is_authenticated() and request.user.userstatus.is_contributor == False:
+			return render(request, "become_a_contributor.html", {}) 
+		else:
+			#return render(request, "please_signup.html", {})
+			return render(request, "home.html", {}) 
 
 
 ##########################################################################################
@@ -293,7 +317,7 @@ def provide_feedback(request):
 			form_username = 'not provided' 
 		#print email, message, full_name
 		subject = 'Providing General Feedback'
-		from_email = settings.EMAIL_HOST_USER
+		from_email = settings.EMAIL_ADDR
 		to_email = [from_email]
 		contact_message = "username:%s___ Message: %s ____ Sent_by %s"%( 
 				form_username, 
@@ -326,7 +350,7 @@ def access_issues(request):
 		else:
 			form_username = 'not provided' 
 		subject = 'Reporting Access Issues'
-		from_email = settings.EMAIL_HOST_USER
+		from_email = settings.EMAIL_ADDR
 		to_email = [from_email]
 		contact_message = "username:%s___ Message: %s ____ Sent_by %s"%( 
 				form_username, 
@@ -360,7 +384,7 @@ def report_data_issues(request):
 		form_office = form.cleaned_data.get("office")
 		form_message = form.cleaned_data.get("message")
 		subject = 'Missing/Incorrect data reported by portal user'
-		from_email = settings.EMAIL_HOST_USER
+		from_email = settings.EMAIL_ADDR
 		to_email = [from_email]
 		contact_message = "data_issue:%s_ first_name:%s| last_name:%s| service_area:%s| level:%s| office:%s|  Message: %s|   Reported by: %s|	 email: %s"%( 
 				form_data_issue,

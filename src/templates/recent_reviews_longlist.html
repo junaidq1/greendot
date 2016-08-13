@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+	{{username}}'s homepage: 
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<div class='container'>
+<h2> Welcome {{username}} </h2>
+<hr/>
+ 	<div class='row'>
+		
+		<h4>Recently Reviewed Practitioners</h4> 
+		<div class='col-sm-6'> 
+	
+		 	<br>
+		 		{% for obj in recent_reviews1 %}
+					<ul>
+					{{ forloop.counter }}. 
+					<a href='{% url "emp_details" pk=obj.employee.pk %}'>
+					{{obj.employee.first_name}} {{obj.employee.last_name}} |
+					{{obj.employee.service_area}} |
+					</a>
+					Posted By: {{obj.user}} |
+					{{obj.timestamp|timesince}} ago
+					</ul>
+				{% endfor %}
+				<hr/>
+		</div>
+
+		<div class='col-sm-6'> 
+	
+		 	<br>
+		 		{% for obj in recent_reviews2 %}
+					<ul>
+					{{ forloop.counter|add:15}}. 
+					<a href='{% url "emp_details" pk=obj.employee.pk %}'>
+					{{obj.employee.first_name}} {{obj.employee.last_name}} |
+					{{obj.employee.service_area}} |
+					</a>
+					Posted By: {{obj.user}} |
+					{{obj.timestamp|timesince}} ago
+					</ul>
+				{% endfor %}
+				<hr/>
+		</div>
+
+
+
+
+	</div>
+</div>
+
+
+
+{% endblock %}
