@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from .models import Review, Employee, Vote, VoteManager, UserLevel
-from .forms import ReviewForm2, ValidationForm, ContactForm, AccessIssuesForm, ReportDataForm, UserLevelRegistrationForm
+from .forms import ReviewForm2, ValidationForm, ContactForm, AccessIssuesForm, ReportDataForm, UserLevelRegistrationForm, PartnerForm
 from django.db.models import Q
 from django.contrib.auth.models import User #test this guy - remove if needed
 from django.db.models import Count, Sum, Avg
@@ -286,8 +286,8 @@ def view_past_user_reviews(request, pk=None):
 @login_required
 def list_of_reviewed_employees(request):
 	if request.user.is_authenticated() and request.user.userstatus.is_contributor:
-		recent_reviews1 = Review.objects.filter(employee__is_live=True).order_by('-pk')[:15]
-		recent_reviews2 = Review.objects.filter(employee__is_live=True).order_by('-pk')[16:31]
+		recent_reviews1 = Review.objects.filter(employee__is_live=True).order_by('-pk')[:25]
+		recent_reviews2 = Review.objects.filter(employee__is_live=True).order_by('-pk')[25:50]
 		#update recent_voted_reviews after model refresh
 		context = {
 		"username": request.user,  #update this
@@ -410,4 +410,39 @@ def report_data_issues(request):
 	}
 	return render(request, "report_data.html", context)
 
+def partner_with_us(request):
+	form = PartnerForm(request.POST or None)
+	if form.is_valid():
+		form_service_area = form.cleaned_data.get("service_ar")
+		form_email = form.cleaned_data.get("contact_email")
+		form_message = form.cleaned_data.get("message")
+		if form.cleaned_data.get("username"):
+			form_username = form.cleaned_data.get("username")
+		else:
+			form_username = 'not provided' 
+		#print email, message, full_name
+		subject = 'WANT TO PARTNER'
+		from_email = settings.EMAIL_ADDR
+		to_email = [from_email]
+		contact_message = "username:%s___ service_area:%s___ Message: %s ____ Sent_by %s"%( 
+				form_username,
+				form_service_area, 
+				form_message, 
+				form_email)
+		# some_html_message = """
+		# <h1>hello</h1>
+		# """
+		send_mail(subject, 
+				contact_message, 
+				from_email, 
+				to_email, 
+				#html_message=some_html_message,
+				fail_silently=False)
+		messages.success(request, 'Thanks! Your message has been submitted')
+		return HttpResponseRedirect('/')
+	context = {
+		"form": form,
+		#"messages": messages,
+	}
+	return render(request, "partner_with_us.html", context)
 

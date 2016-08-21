@@ -44,10 +44,10 @@ class UserStatusAdmin(admin.ModelAdmin):
 		model = UserStatus
 
 class UserLevelAdmin(admin.ModelAdmin):
-	list_display = ['pk','user', 'level', 'updated']
-	list_display_links = ['pk','user', 'level', 'updated']
+	list_display = ['pk','user', 'level', 'office', 'service_area','updated']
+	list_display_links = ['pk','user', 'level', 'office', 'service_area', 'updated']
 
-	search_fields = ['pk','user', 'level', 'updated']
+	search_fields = ['pk','user', 'level','office', 'service_area', 'updated']
 	class Meta:
 		model = UserLevel
 

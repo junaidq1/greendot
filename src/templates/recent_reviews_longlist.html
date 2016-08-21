@@ -37,7 +37,7 @@
 		 	<br>
 		 		{% for obj in recent_reviews2 %}
 					<ul>
-					{{ forloop.counter|add:15}}. 
+					{{ forloop.counter|add:25}}. 
 					<a href='{% url "emp_details" pk=obj.employee.pk %}'>
 					{{obj.employee.first_name}} {{obj.employee.last_name}} |
 					{{obj.employee.service_area}} |

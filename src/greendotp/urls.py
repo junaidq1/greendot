@@ -51,6 +51,7 @@ urlpatterns = [
     url(r'^provide_feedback/$',   emp.provide_feedback, name='provide_feedback'),
     url(r'^access_issues/$',   emp.access_issues, name='access_issues'),
     url(r'^report_data_issues/$',   emp.report_data_issues, name='report_data_issues'),
+    url(r'^partner_with_us/$',   emp.partner_with_us, name='partner_with_us'),
 ]
 
 if settings.DEBUG:

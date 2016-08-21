@@ -36,7 +36,7 @@ class UserLevelRegistrationForm(RegistrationFormUniqueEmail):
 		('Other', 'other'),
 	)
 	OFFICE_CHOICES = (
-		('Other', 'other'),
+		('Kansas City', 'Kansas City'),
 		('Atlanta', 'Atlanta'),
 		('Austin', 'Austin'),
 		('Bengaluru', 'Bengaluru'),
@@ -50,7 +50,6 @@ class UserLevelRegistrationForm(RegistrationFormUniqueEmail):
 		('Detroit', 'Detroit'),
 		('Gurgaon', 'Gurgaon'),
 		('Houston', 'Houston'),
-		('Kansas City', 'Kansas City'),
 		('Los Angeles', 'Los Angeles'),
 		('McLean', 'McLean'),
 		('Miami', 'Miami'),
@@ -63,6 +62,7 @@ class UserLevelRegistrationForm(RegistrationFormUniqueEmail):
 		('Pittsburgh', 'Pittsburgh'),
 		('San Francisco', 'San Francisco'),
 		('Seattle', 'Seattle'),
+		('Other', 'other'),
 	)
 	ServiceArea_CHOICES = (
 		('S&O', 'S&O'),
@@ -103,6 +103,17 @@ class ReportDataForm(forms.Form):
 	office = forms.CharField(label="Office of practitoner", max_length=120)
 	message = forms.CharField(label="Describe data issue", max_length=1500)
 
+class PartnerForm(forms.Form):
+	service_area_options = (
+	    ('S&O', 'S&O'),
+	    ('Tech', 'Tech'),
+	    ('HCap', 'HCap'),
+	)
+	service_ar =  forms.ChoiceField(choices=service_area_options,
+		label="What Service Area are you aligned with?")
+	message = forms.CharField(label="What makes you a good fit for the team?", widget=forms.Textarea)
+	contact_email = forms.EmailField(label="Email address")
+	
 
 
 
