@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+	greendotpeers: FAQs
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<div class='container'>
+		<br>
+		<h3>Frequently Asked Questions</h3>
+		<hr/>
+		
+		<div class='row'> 		
+ 		<div class='col-sm-11'>
+ 		
+ 		<p class='lead text-align-center'>
+ 		- What do the ratings questions actually mean? 
+ 		<ul>
+ 			<b>Q. How nice is this person in their professional interactions?</b><br>
+ 			- This refers to the interpersonal abilities of a practitioner particularly as they relate to effectively engaging team members around them. It entails their EQ, managerial acumen, and ability to motivate their team towards achieving the ultimate goal 
+ 			
+ 		</ul>
+ 		<ul>
+ 			<b>Q. How competent is this person in their domain of expertise?</b><br>
+ 			- Competence can refer to a practitioners raw horsepower, problem solving skills or collective knowledge base in a functional or industry domain that can be applied to new problems. In other words, competence refers to content focused expertise. It's what ultimately ‘cracks the case’ on tough engagements
+ 			
+ 		</ul>
+ 		<ul>
+ 			<b>Q. How much did you learn from this person while working with them?</b><br>
+ 			- This question gets at how much the practitioner actively invests in building the skills and capabilities of the junior practitioners on their teams 
+ 		</ul>
+
+ 		<ul>
+ 			<b>Q. Would you work with this person again if you had the choice?</b><br>
+ 			- When all is said and done, given the choice, would you want to work with this practitioner again? 
+ 		</ul>
+ 		</p>
+ 		
+ 		<p class='lead text-align-center'>
+ 		- How should I think about the numerical scoring scale? What does a 5 constitute?
+ 		<ul>
+ 			1 = Poor <br>
+			2 = Below average <br>
+			3 = Average <br>
+			4 = Great <br>
+			5 = Amongst the best I’ve seen at the firm <br><br>
+
+			In other words, a 5 rating should be reserved for a truly exceptional display of that capability 
+ 		</ul>
+ 		</p>
+
+ 		<p class='lead text-align-center'>
+ 		- Are there any benefits to leaving more reviews?
+ 		<ul>
+ 			Absolutely! Members who post 10 or more reviews and ‘like’ at least 15 posted reviews are upgraded to ‘Elite’ status. Elite members receive access to premium content such as lists of highest rated consulting practitioners by Service Line and Office and moderator privileges (i.e. they can ‘downvote’ less relevant reviews, flag inappropriate items etc.) 
+ 		</ul>
+
+ 		</p>
+ 		<p class='lead text-align-center'>
+ 		- What does ‘liking’ a review mean? And how does it work?
+ 		<ul>
+ 			If you think that a posted review is an accurate depiction of the skills and capabilities of a practitioner, you can ‘like’ the review. Reviews for practitioners are sorted based on the number of ‘likes’ they receive similar to Reddit or Quora. This system of upvoting ensures that the most relevant reviews assessed by the community are displayed more prominently. You can only 'like' a review once
+ 		</ul>
+ 		</p>
+
+ 		<p class='lead text-align-center'>
+ 		- How are the ratings per practitioner calculated for each of the rating questions?
+ 		<ul>
+ 			The scoring algorithm weights practitioner scores based on the number of normalized ’likes’ received. Posts that receive greater ‘likes’ carry a disproportionate weight in determining practitioner scores
+ 		</ul>
+ 		</p>
+
+ 		<p class='lead text-align-center'>
+ 		- What constitutes a good review?
+ 		<ul>
+ 			An impactful review is one that is factual, detailed and gets at the ‘why’ behind the numerical ratings score given  
+ 		</ul>
+ 		</p>
+
+
+ 		<p class='lead text-align-center'>
+ 		- Can I edit a review once I’ve posted it?
+ 		<ul>
+ 			We do not currently allow posted reviews to be edited by members. If you would like to edit a review please contact a platform moderator at admin@greendotpeers.com  
+ 		</ul>
+ 		</p>
+
+ 		<p class='lead text-align-center'>
+ 		- Is the content on this site moderated?
+ 		<ul>
+ 			Yes! All reviews are assessed for appropriateness and professionalism. Posts that don’t adhere to professional standards are immediately removed  
+ 		</ul>
+ 		</p>
+
+
+	 	</div>
+ 		</div>
+ 	
+
+		<br>
+
+		<div class='row'>
+		<div class='col-sm-4 col-sm-offset-3'>	
+			
+			<a href='{% url "user_homepage" %}' class="btn btn-default btn-lg btn-block" role="button"> Return Home </a>
+			<br>
+		</div>
+		</div>
+
+</div>
+
+{% endblock %}

@@ -12,17 +12,19 @@ from registration.forms import RegistrationFormUniqueEmail #this is to edit the 
 # 		"work_again",
 # 		]
 #actual review post form 
+
 class ReviewForm2(forms.ModelForm):
 	class Meta:
 		model = Review
-		fields = [
-		"length_working",
-		"ques1",
-		"ques2",
-		"ques3",
-		"work_again",
-		"content",
-		]
+		fields = ["length_working", "ques1", "ques2", "ques3","work_again", "content"]
+
+	# def content_clean(self):
+	# 	content = self.cleaned_data.get('content')
+	# 	print "jimmy"
+	# 	print len(content)
+	# 	if len(content) < 70:
+	# 		raise forms.ValidationError("Please provide a more impactful review")
+	# 	return content
 
 #this form edits the registration redux form
 class UserLevelRegistrationForm(RegistrationFormUniqueEmail):

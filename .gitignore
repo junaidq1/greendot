@@ -3,7 +3,8 @@
 bin/
 include/
 Marketing/
-idontwant.py
+data backup/
+data management/
 
 old_settings.py
 settings.py

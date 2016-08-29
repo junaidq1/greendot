@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-from django.core.validators import MaxValueValidator, MinValueValidator 
+from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator
 # Create your models here.
 
 
@@ -30,14 +30,14 @@ class Review(models.Model):
 	work_again =  models.CharField(verbose_name="would you work with this person again if you had the choice?", 
 									max_length=1, choices=WORK_AGAIN_CHOICES, null=False)
 	content = models.TextField(verbose_name="Please provide some comments on what it was like to work with this person", 
-									max_length=1500)
+									max_length=1500, validators=[ MinLengthValidator(60, message="Please enter a more impactful review")])
 	#updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
 	def __unicode__(self):
 		return self.content
 
-	def __string__(self):
-		return self.content
+	# def __string__(self):
+	# 	return self.content
 
 	def get_absolute_url(self):
 		return reverse("r_detail", kwargs={"pk": self.pk} )

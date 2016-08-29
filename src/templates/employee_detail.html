@@ -57,6 +57,7 @@
 
 	<div class='row'>
 	<div class='col-offset-1'>
+	
 
 	<h4 style="color:#85BC22;"> Detailed reviews for {{instance.first_name}} </h4>
 
@@ -68,7 +69,7 @@
 			          <TH style="text-align:center">#</TH>
 			          <TH style="text-align:left">Review Content</TH>
 			          <TH style="text-align:center">Posted by</TH>
-			          <TH style="text-align:center">Votes</TH>
+			          <TH style="text-align:center">Likes</TH>
 			          <TH style="text-align:center">Date</TH>
 			        </TR>
 			      </THEAD>
@@ -79,7 +80,7 @@
 			          <TD class="vert-align" width="700" >{{obj}}  </TD>
 			          <TD class="vert-hor-align" width="80">{{obj.user}}</TD>
 			          <TD class="vert-hor-align" >
-			          <span class="badge badge-info">{{ obj.votereview.fupvotes.count}} </span> - <a href='{% url "r_vote" pk=instance.pk pk2=obj.pk%}'> Upvote</a> </TD>
+			          <span class="badge badge-info">{{ obj.votereview.fupvotes.count}} </span> - <a href='{% url "r_vote" pk=instance.pk pk2=obj.pk%}'> Like Post <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></a> </TD>
 			          <TD class="vert-hor-align">{{ obj.timestamp|date}}</TD>
 			        {% endfor %}
 			        </TR>

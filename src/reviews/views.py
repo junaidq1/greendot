@@ -39,6 +39,9 @@ def go_home(request):
 def about(request):
 	return render(request, "about.html", {})
 
+def faqs(request):
+	return render(request, "faqs.html", {})
+
 @login_required
 def review_list(request):
 	queryset = Review.objects.all()
@@ -104,8 +107,8 @@ def review_create2(request, pk=None):
 	#form = ReviewForm(request.POST or None)
 	#instance = get_object_or_404(Review, pk=pk) #this is what was working_1
 	#form = ReviewForm(request.POST or None, instance=instance) #this is what was working_2	
-	form = ReviewForm2(request.POST or None)
 	obj = Employee.objects.get(pk=pk)
+	form = ReviewForm2(request.POST or None)
 	if form.is_valid():
 		try:
 			instance = form.save(commit=False)
@@ -235,14 +238,27 @@ def vote_error(request):
 # based on users authentication status and contributor status
 def goto_userpage(request):
 	if request.user.is_authenticated() and request.user.userstatus.is_contributor:
-		#recent_reviews = Review.objects.all().order_by('-pk')[:5]
+		#Pull in the 5 most recent reviews to show folks on the homepage
 		recent_reviews = Review.objects.filter(employee__is_live=True).order_by('-pk')[:5]
-		#update recent_voted_reviews after model refresh
+		#Pull in the 5 most recently likes reviews on the homepage
 		recent_voted_reviews = Vote.objects.filter(employee__is_live=True).order_by('-pk')[:5]
+		## count the number of reviews by user
+		rev_count = request.user.review_set.count()
+		## pull in all votes for each review and count them
+		user_review_queryset = Review.objects.filter(user=request.user).order_by('-timestamp')
+		user_review_queryset = user_review_queryset.annotate(num_votes=Count('votereview'))
+		vote_ct = 0
+		for obj in user_review_queryset:
+				vote_ct = vote_ct + obj.num_votes
+		
 		context = {
 		"username": request.user,  #update this
 		"recent_reviews": recent_reviews,
 		"recent_voted_reviews": recent_voted_reviews,
+		"review_count": rev_count,
+		#"vote_count": vote_count,
+		#"user_review_queryset": user_review_queryset, #not needed for now, can add later
+		"vote_ct": vote_ct,
 		} 
 		return render(request, "user_homepage.html", context)
 	else:
