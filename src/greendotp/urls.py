@@ -21,17 +21,20 @@ from django.conf.urls.static import static
 from django.conf.urls import include, url
 from . import regbackend
 from reviews import views as emp 
+from wishlist import views as feat 
 
-#from reviews import views as 
 
 #url(r'^$',   emp.go_home, name='generic_homepage'),    
 #url(r'^myaccount/$', emp.goto_userpage, name='user_homepage'),
 
 urlpatterns = [
     url(r'^siteadmin/', admin.site.urls),
-    url(r'^$',   emp.goto_userpage, name='user_homepage'),    
+    url(r'^$',   emp.goto_userpage, name='user_homepage'), 
+    url(r'^new/$',   emp.newuserpage, name='user_newpage'), #TESTING ONLY
     url(r'^about/$',   emp.about, name='about_us'),
     url(r'^faqs/$',   emp.faqs, name='site_faqs'),
+    url(r'^wishlist/$',   feat.see_wishlist, name='feature_wishlist'), #list of features
+    url(r'^wishlist/(?P<pk>\d+)/$', feat.vote_for_feature, name='feature_vote'), #vote for a feature
     # url(r'^load/$',   emp.import_db, name='importdb'),   #load data into database - keep off
     #custom registration backend link
     url(r'^accounts/register/$', regbackend.MyRegistrationView.as_view(), name='registration_register'),
@@ -53,6 +56,7 @@ urlpatterns = [
     url(r'^access_issues/$',   emp.access_issues, name='access_issues'),
     url(r'^report_data_issues/$',   emp.report_data_issues, name='report_data_issues'),
     url(r'^partner_with_us/$',   emp.partner_with_us, name='partner_with_us'),
+    url(r'^wishlist/error/$',   feat.wishl_error, name='error_in_wishlist_voting'), #wishlist voting error
 ]
 
 if settings.DEBUG:

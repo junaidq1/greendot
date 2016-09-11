@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.core.validators import MaxValueValidator, MinValueValidator, MinLengthValidator
 # Create your models here.
-
+ 
 
  
 # core review model 
@@ -143,4 +143,7 @@ def update_contributor_status_receiver(sender, instance, **kwargs):
 
 #this is a post save signal generator once a user submits a review
 post_save.connect(update_contributor_status_receiver, sender=Review)
+
+
+
 

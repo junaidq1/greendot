@@ -462,3 +462,41 @@ def partner_with_us(request):
 	}
 	return render(request, "partner_with_us.html", context)
 
+
+
+
+##############
+def newuserpage(request):
+	if request.user.is_authenticated() and request.user.userstatus.is_contributor:
+		#Pull in the 5 most recent reviews to show folks on the homepage
+		recent_reviews = Review.objects.filter(employee__is_live=True).order_by('-pk')[:5]
+		#Pull in the 5 most recently likes reviews on the homepage
+		recent_voted_reviews = Vote.objects.filter(employee__is_live=True).order_by('-pk')[:5]
+		## count the number of reviews by user
+		rev_count = request.user.review_set.count()
+		## pull in all votes for each review and count them
+		user_review_queryset = Review.objects.filter(user=request.user).order_by('-timestamp')
+		user_review_queryset = user_review_queryset.annotate(num_votes=Count('votereview'))
+		vote_ct = 0
+		for obj in user_review_queryset:
+				vote_ct = vote_ct + obj.num_votes
+		
+		context = {
+		"username": request.user,  #update this
+		"recent_reviews": recent_reviews,
+		"recent_voted_reviews": recent_voted_reviews,
+		"review_count": rev_count,
+		#"vote_count": vote_count,
+		#"user_review_queryset": user_review_queryset, #not needed for now, can add later
+		"vote_ct": vote_ct,
+		} 
+		return render(request, "user_homepage.html", context)
+	else:
+		if request.user.is_authenticated() and request.user.userstatus.is_contributor == False:
+			return render(request, "become_a_contributor.html", {}) 
+		else:
+			return render(request, "home.html", {})  
+
+
+
+
